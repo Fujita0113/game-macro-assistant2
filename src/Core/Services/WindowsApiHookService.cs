@@ -40,6 +40,11 @@ public class WindowsApiHookService : IWindowsApiHook
     // 状態管理
     private volatile bool _isActive = false;
     private CancellationTokenSource? _cancellationTokenSource;
+    
+    // フック用専用スレッド
+    private Thread? _hookThread;
+    private AutoResetEvent _threadReady = new(false);
+    private uint _hookThreadId;
 
     public bool IsHookActive => _isActive;
     public event EventHandler<InputEvent>? InputDetected;
@@ -61,13 +66,39 @@ public class WindowsApiHookService : IWindowsApiHook
     [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     private static extern IntPtr GetModuleHandle(string lpModuleName);
 
+    [DllImport("user32.dll")]
+    private static extern int GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+
+    [DllImport("user32.dll")]
+    private static extern bool TranslateMessage([In] ref MSG lpMsg);
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr DispatchMessage([In] ref MSG lpMsg);
+
+    [DllImport("user32.dll")]
+    private static extern bool PostThreadMessage(uint idThread, uint Msg, IntPtr wParam, IntPtr lParam);
+    
+    [DllImport("kernel32.dll")]
+    private static extern uint GetCurrentThreadId();
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MSG
+    {
+        public IntPtr hwnd;
+        public uint message;
+        public IntPtr wParam;
+        public IntPtr lParam;
+        public uint time;
+        public POINT pt;
+    }
+
     // フックプロシージャのデリゲート
     private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
     private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
     // マウス・キーボード構造体
     [StructLayout(LayoutKind.Sequential)]
-    private struct POINT
+    public struct POINT
     {
         public int x;
         public int y;
@@ -100,21 +131,60 @@ public class WindowsApiHookService : IWindowsApiHook
 
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-        await Task.Run(() =>
+        _hookThread = new Thread(HookThreadProc)
         {
-            Console.WriteLine("[DEBUG] Windows APIフック設定開始");
+            IsBackground = true,
+            Name = "WindowsApiHookThread"
+        };
+        _hookThread.Start();
+        _threadReady.WaitOne(); // スレッド起動待ち
+
+        _isActive = true;
+        await Task.CompletedTask;
+    }
+
+    public Task StopHookAsync()
+    {
+        if (!_isActive)
+            return Task.CompletedTask;
+
+        _cancellationTokenSource?.Cancel();
+        
+        // フック専用スレッドのメッセージループを終了させる
+        if (_hookThread?.IsAlive == true && _hookThreadId != 0)
+        {
+            const uint WM_QUIT = 0x0012;
+            PostThreadMessage(_hookThreadId, WM_QUIT, IntPtr.Zero, IntPtr.Zero);
+            _hookThread.Join(3000); // 最大3秒待機
+        }
+
+        _isActive = false;
+        return Task.CompletedTask;
+    }
+
+    private void HookThreadProc()
+    {
+        try
+        {
+            Console.WriteLine("[DEBUG] フック専用スレッド開始");
             
-            // マウスフック設定
+            // 現在のスレッドIDを保存
+            _hookThreadId = GetCurrentThreadId();
+            Console.WriteLine($"[DEBUG] フックスレッドID: {_hookThreadId}");
+            
+            // フックプロシージャをフィールドに保持（GC対策）
             _mouseProc = MouseHookProc;
+            _keyboardProc = KeyboardHookProc;
+
+            // マウスフック設定
             _mouseHookHandle = SetWindowsHookEx(WH_MOUSE_LL, _mouseProc,
-                GetModuleHandle("user32.dll"), 0); // user32.dllを使用
+                GetModuleHandle("kernel32.dll"), 0);
 
             Console.WriteLine($"[DEBUG] マウスフックハンドル: {_mouseHookHandle}");
 
             // キーボードフック設定
-            _keyboardProc = KeyboardHookProc;
             _keyboardHookHandle = SetWindowsHookEx(WH_KEYBOARD_LL, _keyboardProc,
-                GetModuleHandle("user32.dll"), 0); // user32.dllを使用
+                GetModuleHandle("kernel32.dll"), 0);
 
             Console.WriteLine($"[DEBUG] キーボードフックハンドル: {_keyboardHookHandle}");
 
@@ -122,41 +192,65 @@ public class WindowsApiHookService : IWindowsApiHook
             {
                 var lastError = Marshal.GetLastWin32Error();
                 Console.WriteLine($"[DEBUG] フック設定失敗。Win32エラー: {lastError}");
-                throw new InvalidOperationException($"Windows API フックの設定に失敗しました。エラーコード: {lastError}");
+                _threadReady.Set();
+                return;
             }
 
-            _isActive = true;
-            Console.WriteLine("[DEBUG] フック設定完了、メッセージループ開始");
+            Console.WriteLine("[DEBUG] フック設定完了、スレッド準備完了");
+            _threadReady.Set(); // メインスレッドに準備完了を通知
 
-            // 軽量なメッセージループ（必要最小限）
-            while (!_cancellationTokenSource.Token.IsCancellationRequested)
+            // Windowsメッセージループ
+            MSG msg;
+            while (!_cancellationTokenSource!.Token.IsCancellationRequested)
             {
-                Thread.Sleep(100); // 100ms待機に変更（CPU使用率を大幅削減）
+                int bRet = GetMessage(out msg, IntPtr.Zero, 0, 0);
+                if (bRet == 0) // WM_QUIT
+                {
+                    Console.WriteLine("[DEBUG] WM_QUIT受信、メッセージループ終了");
+                    break;
+                }
+                if (bRet < 0) // エラー
+                {
+                    Console.WriteLine("[DEBUG] GetMessageエラー、メッセージループ終了");
+                    break;
+                }
+                
+                // キャンセレーション再チェック
+                if (_cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    Console.WriteLine("[DEBUG] キャンセル要求、メッセージループ終了");
+                    break;
+                }
+                
+                TranslateMessage(ref msg);
+                DispatchMessage(ref msg);
             }
 
             Console.WriteLine("[DEBUG] メッセージループ終了");
-
-        }, cancellationToken);
-    }
-
-    public Task StopHookAsync()
-    {
-        _cancellationTokenSource?.Cancel();
-        
-        if (_mouseHookHandle != IntPtr.Zero)
-        {
-            UnhookWindowsHookEx(_mouseHookHandle);
-            _mouseHookHandle = IntPtr.Zero;
         }
-
-        if (_keyboardHookHandle != IntPtr.Zero)
+        catch (Exception ex)
         {
-            UnhookWindowsHookEx(_keyboardHookHandle);
-            _keyboardHookHandle = IntPtr.Zero;
+            Console.WriteLine($"[DEBUG] フックスレッドエラー: {ex.Message}");
+            _threadReady.Set();
         }
+        finally
+        {
+            // フック解除
+            if (_mouseHookHandle != IntPtr.Zero)
+            {
+                UnhookWindowsHookEx(_mouseHookHandle);
+                _mouseHookHandle = IntPtr.Zero;
+            }
 
-        _isActive = false;
-        return Task.CompletedTask;
+            if (_keyboardHookHandle != IntPtr.Zero)
+            {
+                UnhookWindowsHookEx(_keyboardHookHandle);
+                _keyboardHookHandle = IntPtr.Zero;
+            }
+            
+            _hookThreadId = 0; // スレッドID をリセット
+            Console.WriteLine("[DEBUG] フック専用スレッド終了");
+        }
     }
 
     public void SuppressInput(int suppressDurationMs)
@@ -283,7 +377,16 @@ public class WindowsApiHookService : IWindowsApiHook
 
     public void Dispose()
     {
-        StopHookAsync().Wait(1000); // 1秒でタイムアウト
+        if (_isActive)
+        {
+            StopHookAsync().Wait(3000); // 3秒でタイムアウト
+        }
+        
         _cancellationTokenSource?.Dispose();
+        _threadReady?.Dispose();
+        
+        // プロシージャ参照をクリア（GC対策）
+        _mouseProc = null;
+        _keyboardProc = null;
     }
 }

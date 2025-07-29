@@ -154,13 +154,17 @@ public class MainWindowViewModel : ReactiveObject, IActivatableViewModel
         System.Windows.Application.Current?.Dispatcher.Invoke(() =>
         {
             // デバッグ用：イベント受信確認
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] イベント受信: {e.Event.GetType().Name}, 記録中: {IsRecording}");
+            Console.WriteLine($"[DEBUG UI] イベント受信: {e.Event.GetType().Name}, 記録中: {IsRecording}");
             
             // 記録中の場合は、イベントをリストに追加
             if (IsRecording)
             {
                 _currentRecordingEvents.Add(e.Event);
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] イベント追加完了。現在のイベント数: {_currentRecordingEvents.Count}");
+                Console.WriteLine($"[DEBUG UI] イベント追加完了。現在のイベント数: {_currentRecordingEvents.Count}");
+            }
+            else
+            {
+                Console.WriteLine($"[DEBUG UI] 記録中ではないため、イベント追加をスキップ");
             }
             
             StatusText = $"入力検出: {e.Event.GetType().Name} at {e.Event.TimestampMs}ms [録:{_currentRecordingEvents.Count}]";

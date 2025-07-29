@@ -68,28 +68,23 @@ public class InputRecorderService : IInputRecorder
             // フックイベントをInputCapturedに転送
             _hookService.InputDetected += OnHookInputDetected;
 
-            // 非同期でフック開始（UIをブロックしない）
-            _ = Task.Run(async () =>
+            // フック開始（適切な待機を行う）
+            try
             {
-                try
-                {
-                    Console.WriteLine("[DEBUG] フック開始を試行中...");
-                    await _hookService.StartHookAsync(_recordingCancellation.Token);
-                    Console.WriteLine("[DEBUG] フック開始成功");
-                }
-                catch (OperationCanceledException)
-                {
-                    Console.WriteLine("[DEBUG] フック正常キャンセル");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[DEBUG] フック開始失敗: {ex.Message}");
-                    // フック開始失敗は無視（権限不足等）
-                }
-            }, _recordingCancellation.Token);
-            
-            // 即座にreturn（UIをブロックしない）
-            await Task.CompletedTask;
+                Console.WriteLine("[DEBUG] フック開始を試行中...");
+                await _hookService.StartHookAsync(_recordingCancellation.Token);
+                Console.WriteLine("[DEBUG] フック開始成功");
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("[DEBUG] フック正常キャンセル");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DEBUG] フック開始失敗: {ex.Message}");
+                throw new InvalidOperationException($"フック開始に失敗しました: {ex.Message}", ex);
+            }
         }
         catch (OperationCanceledException)
         {
@@ -167,6 +162,10 @@ public class InputRecorderService : IInputRecorder
             Console.WriteLine("[DEBUG] InputCapturedイベントを発火");
             OnInputCaptured(inputEvent, null); // スクリーンショットは今後実装
         }
+        else
+        {
+            Console.WriteLine($"[DEBUG] 記録中ではないため、イベントを無視: {inputEvent.GetType().Name}");
+        }
     }
 
     /// <summary>
@@ -184,7 +183,9 @@ public class InputRecorderService : IInputRecorder
         
         try
         {
+            Console.WriteLine($"[DEBUG] InputCapturedイベント発火開始: {inputEvent.GetType().Name}");
             InputCaptured?.Invoke(this, args);
+            Console.WriteLine($"[DEBUG] InputCapturedイベント発火完了: {inputEvent.GetType().Name}");
         }
         catch (Exception ex)
         {
