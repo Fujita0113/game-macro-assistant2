@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gamemacroassistant.dev/schema/log_v1.json",
+  "title": "GameMacroAssistant Log Schema v1",
+  "description": "Schema for application log entries",
+  "type": "object",
+  "required": ["timestamp", "level", "source", "message"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Log entry timestamp (ISO 8601)"
+    },
+    "level": {
+      "type": "string",
+      "enum": ["trace", "debug", "info", "warn", "error", "fatal"],
+      "description": "Log severity level"
+    },
+    "source": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "Source component or class name"
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Human-readable log message"
+    },
+    "errorCode": {
+      "type": "string",
+      "enum": ["Err-CAP", "Err-TIM", "Err-IMG", "Err-KEY", "Err-FILE", "Err-NET", "Err-MEM"],
+      "description": "Application-specific error code"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional structured data",
+      "properties": {
+        "exception": {
+          "type": "object",
+          "properties": {
+            "type": {"type": "string"},
+            "message": {"type": "string"},
+            "stackTrace": {"type": "string"}
+          }
+        },
+        "performance": {
+          "type": "object", 
+          "properties": {
+            "cpuUsage": {"type": "number", "minimum": 0, "maximum": 100},
+            "memoryUsage": {"type": "integer", "minimum": 0},
+            "duration": {"type": "integer", "minimum": 0}
+          }
+        },
+        "capture": {
+          "type": "object",
+          "properties": {
+            "method": {"type": "string", "enum": ["DesktopDuplication", "GDI"]},
+            "resolution": {"type": "string", "pattern": "^\\d+x\\d+$"},
+            "retryCount": {"type": "integer", "minimum": 0, "maximum": 2}
+          }
+        },
+        "timing": {
+          "type": "object",
+          "properties": {
+            "expected": {"type": "integer", "minimum": 0},
+            "actual": {"type": "integer", "minimum": 0},
+            "error": {"type": "integer"},
+            "averageError": {"type": "number"},
+            "maxError": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for related log entries"
+    }
+  },
+  "examples": [
+    {
+      "timestamp": "2025-07-29T10:30:45.123Z",
+      "level": "error",
+      "source": "ScreenCaptureService",
+      "message": "Desktop Duplication API failed, falling back to GDI",
+      "errorCode": "Err-CAP",
+      "details": {
+        "capture": {
+          "method": "GDI",
+          "resolution": "1920x1080",
+          "retryCount": 2
+        }
+      },
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+      "timestamp": "2025-07-29T10:31:02.456Z", 
+      "level": "warn",
+      "source": "MacroPlayer",
+      "message": "Playback timing error exceeded threshold",
+      "errorCode": "Err-TIM",
+      "details": {
+        "timing": {
+          "expected": 1000,
+          "actual": 1018,
+          "error": 18,
+          "averageError": 4.2,
+          "maxError": 18
+        }
+      },
+      "correlationId": "550e8400-e29b-41d4-a716-446655440001"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+<Window x:Class="GameMacroAssistant.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GameMacroAssistant" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ツールバー -->
+        <ToolBar Grid.Row="0">
+            <Button Content="🔴 記録開始" Width="100" Height="30" Margin="5"/>
+            <Button Content="⏹️ 停止" Width="100" Height="30" Margin="5"/>
+            <Separator/>
+            <Button Content="▶️ 再生" Width="100" Height="30" Margin="5"/>
+            <Button Content="⚙️ 設定" Width="100" Height="30" Margin="5"/>
+        </ToolBar>
+
+        <!-- メインコンテンツエリア -->
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="マクロ一覧">
+                <ListBox>
+                    <!-- TODO: マクロ一覧バインディング -->
+                </ListBox>
+            </TabItem>
+            <TabItem Header="エディタ">
+                <Grid>
+                    <!-- TODO: ビジュアルエディタコンテンツ -->
+                    <TextBlock Text="ビジュアルエディタ（実装予定）" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center" 
+                              FontSize="16" 
+                              Foreground="Gray"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- ステータスバー -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="準備完了"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="CPU: 0% | RAM: 0MB"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
