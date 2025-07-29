@@ -1,5 +1,6 @@
 using System.Windows;
 using GameMacroAssistant.UI.ViewModels;
+using ReactiveUI;
 
 namespace GameMacroAssistant.UI.Views;
 
@@ -13,5 +14,21 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainWindowViewModel();
+
+        Loaded += (_, _) =>
+        {
+            if (DataContext is IActivatableViewModel avm)
+            {
+                avm.Activator.Activate();
+            }
+        };
+
+        Unloaded += (_, _) =>
+        {
+            if (DataContext is IActivatableViewModel avm)
+            {
+                avm.Activator.Deactivate();
+            }
+        };
     }
 }
