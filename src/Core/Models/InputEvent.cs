@@ -16,6 +16,9 @@ public abstract record InputEvent
 
     /// <summary>イベント種別</summary>
     public abstract InputEventType Type { get; }
+
+    /// <summary>デバッグ用の詳細情報を文字列で取得</summary>
+    public abstract override string ToString();
 }
 
 /// <summary>
@@ -40,6 +43,12 @@ public record MouseInputEvent : InputEvent
 
     /// <summary>押下時間（ミリ秒）、Action がClick/Up の場合のみ有効</summary>
     public int? PressDurationMs { get; init; }
+
+    public override string ToString()
+    {
+        var duration = PressDurationMs.HasValue ? $", Duration={PressDurationMs}ms" : "";
+        return $"Mouse[{TimestampMs}ms] {Button} {Action} at ({X},{Y}){duration}";
+    }
 }
 
 /// <summary>
@@ -61,6 +70,13 @@ public record KeyboardInputEvent : InputEvent
 
     /// <summary>押下時間（ミリ秒）、Action がPress/Up の場合のみ有効</summary>
     public int? PressDurationMs { get; init; }
+
+    public override string ToString()
+    {
+        var modifiers = Modifiers != KeyModifiers.None ? $"{Modifiers}+" : "";
+        var duration = PressDurationMs.HasValue ? $", Duration={PressDurationMs}ms" : "";
+        return $"Keyboard[{TimestampMs}ms] {modifiers}VK{VirtualKeyCode} {Action}{duration}";
+    }
 }
 
 /// <summary>入力イベント種別</summary>
@@ -73,6 +89,7 @@ public enum InputEventType
 /// <summary>マウスボタン種別</summary>
 public enum MouseButton
 {
+    None,      // ボタンなし（移動のみ）
     Left,
     Right,
     Middle,

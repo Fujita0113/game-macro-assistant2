@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\GameMacroAssistant.Core.csproj" />
     <ProjectReference Include="..\UI\GameMacroAssistant.UI.csproj" />
+    <ProjectReference Include="..\CLI\CLI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

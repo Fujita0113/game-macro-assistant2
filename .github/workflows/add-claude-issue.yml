@@ -1,0 +1,27 @@
+name: Add Claude Issue Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Issueのタイトル"
+        required: true
+      body:
+        description: "Issueの本文"
+        required: true
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    env:  # 👈 この位置
+      CLAUDE_PAT: ${{ secrets.CLAUDE_PAT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Run create_issue.py
+        env:
+          CLAUDE_PAT: ${{ secrets.CLAUDE_PAT }}
+        run: |
+          python scripts/create_issue.py --title "${{ github.event.inputs.title }}" --body "${{ github.event.inputs.body }}"

@@ -1,6 +1,7 @@
 <Window x:Class="GameMacroAssistant.UI.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:GameMacroAssistant.UI.Converters"
         Title="GameMacroAssistant" Height="600" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -12,18 +13,32 @@
 
         <!-- ツールバー -->
         <ToolBar Grid.Row="0">
-            <Button Content="🔴 記録開始" Width="100" Height="30" Margin="5"/>
-            <Button Content="⏹️ 停止" Width="100" Height="30" Margin="5"/>
+            <Button Content="🔴 記録開始" Width="100" Height="30" Margin="5" 
+                    Command="{Binding StartRecordingCommand}"
+                    IsEnabled="{Binding IsRecording, Converter={x:Static converters:InverseBoolConverter.Instance}}"/>
+            <Button Content="⏹️ 停止" Width="100" Height="30" Margin="5"
+                    Command="{Binding StopRecordingCommand}"
+                    IsEnabled="{Binding IsRecording}"/>
             <Separator/>
-            <Button Content="▶️ 再生" Width="100" Height="30" Margin="5"/>
-            <Button Content="⚙️ 設定" Width="100" Height="30" Margin="5"/>
+            <Button Content="▶️ 再生" Width="100" Height="30" Margin="5"
+                    Command="{Binding PlayMacroCommand}"/>
+            <Button Content="⚙️ 設定" Width="100" Height="30" Margin="5"
+                    Command="{Binding OpenSettingsCommand}"/>
         </ToolBar>
 
         <!-- メインコンテンツエリア -->
         <TabControl Grid.Row="1" Margin="10">
             <TabItem Header="マクロ一覧">
-                <ListBox>
-                    <!-- TODO: マクロ一覧バインディング -->
+                <ListBox ItemsSource="{Binding Macros}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Width="150"/>
+                                <TextBlock Text="{Binding EventCount, StringFormat='{}{0} イベント'}" Width="80"/>
+                                <TextBlock Text="{Binding Created, StringFormat='{}{0:HH:mm:ss}'}" Foreground="Gray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
             <TabItem Header="エディタ">
@@ -41,10 +56,10 @@
         <!-- ステータスバー -->
         <StatusBar Grid.Row="2">
             <StatusBarItem>
-                <TextBlock Text="準備完了"/>
+                <TextBlock Text="{Binding StatusText}"/>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
-                <TextBlock Text="CPU: 0% | RAM: 0MB"/>
+                <TextBlock Text="{Binding SystemStatsText}"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

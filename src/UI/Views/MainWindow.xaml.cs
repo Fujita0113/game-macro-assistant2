@@ -1,4 +1,5 @@
 using System.Windows;
+using GameMacroAssistant.UI.ViewModels;
 
 namespace GameMacroAssistant.UI.Views;
 
@@ -11,5 +12,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainWindowViewModel();
     }
 }

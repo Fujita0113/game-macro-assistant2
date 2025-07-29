@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Exclude>
+            <!-- 自動生成ファイル -->
+            [*.g]*                              
+            [*]App.g.cs
+            [*]MainWindow.g.cs
+            [*]*\obj\*
+            [*]*\bin\*
+            
+            <!-- WPF XAML関連 -->
+            [GameMacroAssistant.UI]*.xaml.cs    
+            [GameMacroAssistant.UI]*App*
+            [GameMacroAssistant.UI]*MainWindow*
+            
+            <!-- まだ実装していない型（実装完了時に削除） -->
+            [*]*ScreenshotResult*
+            [*]*IScreenshotProvider*
+            
+            <!-- テストプロジェクト自体 -->
+            [GameMacroAssistant.Tests]*
+            [*Tests]*
+          </Exclude>
+          
+          <!-- モジュール別しきい値設定 -->
+          <Thresholds>
+            <Threshold>
+              <Assembly>GameMacroAssistant.Core</Assembly>
+              <LineCoverage>90</LineCoverage>
+              <BranchCoverage>80</BranchCoverage>
+            </Threshold>
+            <Threshold>
+              <Assembly>CLI</Assembly>
+              <LineCoverage>90</LineCoverage>
+              <BranchCoverage>85</BranchCoverage>
+            </Threshold>
+          </Thresholds>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
