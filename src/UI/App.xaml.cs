@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -5,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Splat;
 using GameMacroAssistant.Core.Services;
+using GameMacroAssistant.Core.Models;
 
 namespace GameMacroAssistant.UI;
 
@@ -16,8 +21,44 @@ public partial class App : Application
 {
     private IHost? _host;
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
+        if (e.Args.Contains("--headless"))
+        {
+            string? macroPath = e.Args.FirstOrDefault(a => a != "--headless");
+            if (macroPath == null)
+            {
+                Console.Error.WriteLine("Macro file path required in headless mode.");
+                Shutdown(1);
+                return;
+            }
+
+            try
+            {
+                var json = File.ReadAllText(macroPath);
+                var macro = JsonSerializer.Deserialize<Macro>(json);
+                if (macro == null)
+                {
+                    Console.Error.WriteLine("Failed to parse macro file.");
+                    Shutdown(1);
+                    return;
+                }
+
+                Console.WriteLine($"Running macro '{macro.Metadata.Name}' silently...");
+                var executor = new MacroExecutor();
+                await executor.RunAsync(macro);
+                Console.WriteLine("Macro execution completed.");
+                Shutdown();
+                return;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error: {ex.Message}");
+                Shutdown(1);
+                return;
+            }
+        }
+
         // DI コンテナとログ設定
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(ConfigureServices)
