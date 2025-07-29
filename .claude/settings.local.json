@@ -4,7 +4,21 @@
       "Bash(mkdir:*)",
       "Bash(dotnet restore:*)",
       "Bash(dotnet build)",
-      "Bash(dotnet test)"
+      "Bash(dotnet test)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(dotnet run:*)",
+      "Bash(git merge:*)",
+      "Bash(dotnet build:*)",
+      "Bash(python scripts/create_issue.py:*)",
+      "Bash(rm:*)",
+      "Bash(dotnet test:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(echo $env:OS)",
+      "Bash(mv:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
