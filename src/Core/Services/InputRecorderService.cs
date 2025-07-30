@@ -97,6 +97,18 @@ public class InputRecorderService : IInputRecorder
     }
 
     /// <summary>
+    /// 停止準備（停止操作前に呼び出して停止関連イベントを抑制）
+    /// </summary>
+    public void PrepareForStop()
+    {
+        if (_isRecording)
+        {
+            _hookService?.StartStoppingMode();
+            Console.WriteLine("[DEBUG] 停止準備開始 - 停止関連イベントを抑制");
+        }
+    }
+
+    /// <summary>
     /// マクロ記録を停止
     /// R-005: デフォルトはESCキー
     /// </summary>
@@ -116,6 +128,9 @@ public class InputRecorderService : IInputRecorder
             cancellationToStop = _recordingCancellation;
             _isRecording = false;
         }
+
+        // 少し待機してから停止処理を実行（停止操作が確実に抑制されるように）
+        await Task.Delay(50, cancellationToken);
 
         // フックサービスを停止
         if (_hookService != null)
@@ -156,6 +171,28 @@ public class InputRecorderService : IInputRecorder
     private void OnHookInputDetected(object? sender, InputEvent inputEvent)
     {
         Console.WriteLine($"[DEBUG] フックイベント受信: {inputEvent.GetType().Name}, 記録中: {IsRecording}");
+        
+        // ESCキー押下での自動停止チェック（将来の機能）
+        if (IsRecording && inputEvent is KeyboardInputEvent keyEvent)
+        {
+            if (keyEvent.VirtualKeyCode == StopRecordingKey && keyEvent.Action == KeyboardAction.Down)
+            {
+                Console.WriteLine($"[DEBUG] 停止キー（VK{StopRecordingKey}）検出 - 記録停止を開始");
+                // 非同期で停止処理を実行（フックスレッドをブロックしないため）
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await StopRecordingAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[DEBUG] 自動停止エラー: {ex.Message}");
+                    }
+                });
+                return; // 停止キー自体は記録しない
+            }
+        }
         
         if (IsRecording)
         {

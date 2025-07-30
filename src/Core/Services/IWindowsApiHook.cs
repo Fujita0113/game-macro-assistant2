@@ -40,4 +40,9 @@ public interface IWindowsApiHook : IDisposable
     /// </summary>
     /// <param name="suppressDurationMs">抑制時間（ミリ秒）</param>
     void SuppressInput(int suppressDurationMs);
+
+    /// <summary>
+    /// 停止直前モードを開始（停止操作に関連するイベントを抑制）
+    /// </summary>
+    void StartStoppingMode();
 }

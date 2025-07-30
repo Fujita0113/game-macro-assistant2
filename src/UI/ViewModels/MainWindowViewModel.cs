@@ -110,6 +110,13 @@ public class MainWindowViewModel : ReactiveObject, IActivatableViewModel
         try
         {
             StatusText = "記録停止中...";
+            
+            // 停止ボタンクリック直後に停止準備を開始
+            if (_inputRecorder is InputRecorderService recorderService)
+            {
+                recorderService.PrepareForStop();
+            }
+            
             await _inputRecorder.StopRecordingAsync();
             IsRecording = false;
 
