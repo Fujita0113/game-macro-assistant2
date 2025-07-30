@@ -16,6 +16,8 @@ public class InputRecorderService : IInputRecorder
     private CancellationTokenSource? _recordingCancellation;
     private readonly object _lockObject = new();
     private IWindowsApiHook? _hookService;
+    private int? _stopInitiatedTick;
+    private const int STOP_EVENT_SUPPRESS_MS = 200;
 
     /// <summary>
     /// 入力記録が開始されているかどうか
@@ -58,6 +60,7 @@ public class InputRecorderService : IInputRecorder
 
             _recordingCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             _isRecording = true;
+            _stopInitiatedTick = null;
         }
 
         try
@@ -103,6 +106,7 @@ public class InputRecorderService : IInputRecorder
     {
         if (_isRecording)
         {
+            _stopInitiatedTick = Environment.TickCount;
             _hookService?.StartStoppingMode();
             Console.WriteLine("[DEBUG] 停止準備開始 - 停止関連イベントを抑制");
         }
@@ -138,6 +142,8 @@ public class InputRecorderService : IInputRecorder
             _hookService.InputDetected -= OnHookInputDetected;
             await _hookService.StopHookAsync();
         }
+
+        _stopInitiatedTick = null;
 
         cancellationToStop?.Cancel();
         
@@ -196,6 +202,13 @@ public class InputRecorderService : IInputRecorder
         
         if (IsRecording)
         {
+            if (_stopInitiatedTick.HasValue &&
+                Math.Abs(inputEvent.TimestampMs - _stopInitiatedTick.Value) <= STOP_EVENT_SUPPRESS_MS)
+            {
+                Console.WriteLine("[DEBUG] 停止操作に伴うイベントを無視");
+                return;
+            }
+
             Console.WriteLine("[DEBUG] InputCapturedイベントを発火");
             OnInputCaptured(inputEvent, null); // スクリーンショットは今後実装
         }
