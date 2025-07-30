@@ -120,6 +120,12 @@ public class MainWindowViewModel : ReactiveObject, IActivatableViewModel
             await _inputRecorder.StopRecordingAsync();
             IsRecording = false;
 
+            // 停止ボタンのクリックイベントを除去
+            if (_currentRecordingEvents.Count > 0)
+            {
+                _currentRecordingEvents.RemoveAt(_currentRecordingEvents.Count - 1);
+            }
+
             // 記録されたイベントをコピー
             var recordedEvents = new List<InputEvent>(_currentRecordingEvents);
 
