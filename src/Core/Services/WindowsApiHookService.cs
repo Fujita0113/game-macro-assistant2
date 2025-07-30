@@ -36,6 +36,11 @@ public class WindowsApiHookService : IWindowsApiHook
     // 入力抑制管理
     private long _suppressUntilTicks = 0;
     private readonly object _suppressLock = new();
+    
+    // 停止直前イベント抑制管理
+    private volatile bool _isStoppingMode = false;
+    private long _stoppingModeStartTicks = 0;
+    private const int STOP_EVENT_SUPPRESS_MS = 200; // 停止操作前後200msのイベントを抑制
 
     // 状態管理
     private volatile bool _isActive = false;
@@ -45,6 +50,16 @@ public class WindowsApiHookService : IWindowsApiHook
     private Thread? _hookThread;
     private AutoResetEvent _threadReady = new(false);
     private uint _hookThreadId;
+    
+    // イベント重複除去用
+    private readonly object _eventFilterLock = new();
+    private MouseInputEvent? _lastMouseEvent;
+    private KeyboardInputEvent? _lastKeyboardEvent;
+    private const int DUPLICATE_THRESHOLD_MS = 50; // 50ms以内の同一イベントは重複とみなす
+    
+    // マウスクリック統合用
+    private readonly Dictionary<MouseButton, MouseInputEvent> _pendingMouseClicks = new();
+    private const int CLICK_TIMEOUT_MS = 500; // クリック統合のタイムアウト
 
     public bool IsHookActive => _isActive;
     public event EventHandler<InputEvent>? InputDetected;
@@ -249,6 +264,22 @@ public class WindowsApiHookService : IWindowsApiHook
             }
             
             _hookThreadId = 0; // スレッドID をリセット
+            
+            // イベントフィルタをリセット
+            lock (_eventFilterLock)
+            {
+                _lastMouseEvent = null;
+                _lastKeyboardEvent = null;
+                _pendingMouseClicks.Clear();
+            }
+            
+            // 停止モードをリセット
+            lock (_suppressLock)
+            {
+                _isStoppingMode = false;
+                _stoppingModeStartTicks = 0;
+            }
+            
             Console.WriteLine("[DEBUG] フック専用スレッド終了");
         }
     }
@@ -261,19 +292,26 @@ public class WindowsApiHookService : IWindowsApiHook
         }
     }
 
+    /// <summary>
+    /// 停止直前モードを開始（停止操作に関連するイベントを抑制）
+    /// </summary>
+    public void StartStoppingMode()
+    {
+        lock (_suppressLock)
+        {
+            _isStoppingMode = true;
+            _stoppingModeStartTicks = DateTime.UtcNow.Ticks;
+            Console.WriteLine("[DEBUG] 停止直前モード開始 - 停止操作関連イベントを抑制");
+        }
+    }
+
     private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam)
     {
         if (nCode >= 0 && !IsInputSuppressed())
         {
             Console.WriteLine($"[DEBUG] マウスフックイベント: nCode={nCode}, wParam={wParam.ToInt32()}");
             var hookStruct = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
-            var mouseEvent = CreateMouseEvent(wParam.ToInt32(), hookStruct);
-            
-            if (mouseEvent != null)
-            {
-                Console.WriteLine($"[DEBUG] マウスイベント生成成功: {mouseEvent.Action} at ({mouseEvent.X}, {mouseEvent.Y})");
-                InputDetected?.Invoke(this, mouseEvent);
-            }
+            ProcessMouseEvent(wParam.ToInt32(), hookStruct);
         }
 
         return CallNextHookEx(_mouseHookHandle, nCode, wParam, lParam);
@@ -287,7 +325,7 @@ public class WindowsApiHookService : IWindowsApiHook
             var hookStruct = Marshal.PtrToStructure<KBDLLHOOKSTRUCT>(lParam);
             var keyEvent = CreateKeyboardEvent(wParam.ToInt32(), hookStruct);
             
-            if (keyEvent != null)
+            if (keyEvent != null && !IsDuplicateKeyboardEvent(keyEvent))
             {
                 Console.WriteLine($"[DEBUG] キーボードイベント生成成功: VK{keyEvent.VirtualKeyCode} {keyEvent.Action}");
                 InputDetected?.Invoke(this, keyEvent);
@@ -301,46 +339,25 @@ public class WindowsApiHookService : IWindowsApiHook
     {
         lock (_suppressLock)
         {
-            return DateTime.UtcNow.Ticks < _suppressUntilTicks;
+            // 通常の入力抑制チェック
+            if (DateTime.UtcNow.Ticks < _suppressUntilTicks)
+                return true;
+                
+            // 停止モード中の入力抑制チェック
+            if (_isStoppingMode)
+            {
+                var elapsedMs = (DateTime.UtcNow.Ticks - _stoppingModeStartTicks) / TimeSpan.TicksPerMillisecond;
+                if (elapsedMs <= STOP_EVENT_SUPPRESS_MS)
+                {
+                    Console.WriteLine($"[DEBUG] 停止モード中のイベント抑制: {elapsedMs}ms経過");
+                    return true;
+                }
+            }
+            
+            return false;
         }
     }
 
-    private MouseInputEvent? CreateMouseEvent(int wParam, MSLLHOOKSTRUCT hookStruct)
-    {
-        var action = wParam switch
-        {
-            WM_MOUSEMOVE => MouseAction.Move,
-            WM_LBUTTONDOWN => MouseAction.Down,
-            WM_LBUTTONUP => MouseAction.Up,
-            WM_RBUTTONDOWN => MouseAction.Down,
-            WM_RBUTTONUP => MouseAction.Up,
-            WM_MBUTTONDOWN => MouseAction.Down,
-            WM_MBUTTONUP => MouseAction.Up,
-            _ => (MouseAction?)null
-        };
-
-        var button = wParam switch
-        {
-            WM_LBUTTONDOWN or WM_LBUTTONUP => MouseButton.Left,
-            WM_RBUTTONDOWN or WM_RBUTTONUP => MouseButton.Right,
-            WM_MBUTTONDOWN or WM_MBUTTONUP => MouseButton.Middle,
-            WM_MOUSEMOVE => MouseButton.None,
-            _ => MouseButton.None
-        };
-
-        if (action == null) return null;
-
-        return new MouseInputEvent
-        {
-            Id = Guid.NewGuid(),
-            TimestampMs = (int)hookStruct.time,
-            X = hookStruct.pt.x,
-            Y = hookStruct.pt.y,
-            Button = button,
-            Action = action.Value,
-            PressDurationMs = null // フック段階では持続時間は不明
-        };
-    }
 
     private KeyboardInputEvent? CreateKeyboardEvent(int wParam, KBDLLHOOKSTRUCT hookStruct)
     {
@@ -373,6 +390,152 @@ public class WindowsApiHookService : IWindowsApiHook
         // 現在は基本値を返す
         
         return modifiers;
+    }
+
+    /// <summary>
+    /// マウスイベントを統合処理（DOWN/UPペアを1つのクリックイベントにまとめる）
+    /// </summary>
+    private void ProcessMouseEvent(int wParam, MSLLHOOKSTRUCT hookStruct)
+    {
+        // マウス移動は無視
+        if (wParam == WM_MOUSEMOVE)
+            return;
+
+        var button = wParam switch
+        {
+            WM_LBUTTONDOWN or WM_LBUTTONUP => MouseButton.Left,
+            WM_RBUTTONDOWN or WM_RBUTTONUP => MouseButton.Right,
+            WM_MBUTTONDOWN or WM_MBUTTONUP => MouseButton.Middle,
+            _ => MouseButton.None
+        };
+
+        if (button == MouseButton.None)
+            return;
+
+        var isDown = wParam switch
+        {
+            WM_LBUTTONDOWN or WM_RBUTTONDOWN or WM_MBUTTONDOWN => true,
+            WM_LBUTTONUP or WM_RBUTTONUP or WM_MBUTTONUP => false,
+            _ => false
+        };
+
+        lock (_eventFilterLock)
+        {
+            if (isDown)
+            {
+                // DOWNイベント: 待機中のクリックを作成
+                var mouseEvent = new MouseInputEvent
+                {
+                    Id = Guid.NewGuid(),
+                    TimestampMs = (int)hookStruct.time,
+                    X = hookStruct.pt.x,
+                    Y = hookStruct.pt.y,
+                    Button = button,
+                    Action = MouseAction.Click, // DOWN+UPを統合してClickに
+                    PressDurationMs = null // UPで計算される
+                };
+
+                _pendingMouseClicks[button] = mouseEvent;
+                Console.WriteLine($"[DEBUG] マウスDOWN待機中: {button} at ({mouseEvent.X}, {mouseEvent.Y})");
+            }
+            else
+            {
+                // UPイベント: 対応するDOWNがあれば統合してイベント発火
+                if (_pendingMouseClicks.TryGetValue(button, out var pendingClick))
+                {
+                    var duration = (int)hookStruct.time - pendingClick.TimestampMs;
+                    
+                    // タイムアウトチェック（異常に長いクリックは除外）
+                    if (duration > 0 && duration <= CLICK_TIMEOUT_MS)
+                    {
+                        // 継続時間を含む新しいイベントオブジェクトを作成
+                        var completedClick = new MouseInputEvent
+                        {
+                            Id = pendingClick.Id,
+                            TimestampMs = pendingClick.TimestampMs,
+                            X = pendingClick.X,
+                            Y = pendingClick.Y,
+                            Button = pendingClick.Button,
+                            Action = pendingClick.Action,
+                            PressDurationMs = duration
+                        };
+                        
+                        // 重複チェック
+                        if (!IsDuplicateMouseEvent(completedClick))
+                        {
+                            Console.WriteLine($"[DEBUG] 統合マウスクリック: {button} 継続時間={duration}ms at ({completedClick.X}, {completedClick.Y})");
+                            InputDetected?.Invoke(this, completedClick);
+                        }
+                    }
+                    
+                    _pendingMouseClicks.Remove(button);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// マウスイベントの重複チェック
+    /// </summary>
+    private bool IsDuplicateMouseEvent(MouseInputEvent mouseEvent)
+    {
+        lock (_eventFilterLock)
+        {
+            if (_lastMouseEvent == null)
+            {
+                _lastMouseEvent = mouseEvent;
+                return false;
+            }
+
+            // 同じボタン、同じアクション、近い時間、同じ座標の場合は重複とみなす
+            bool isDuplicate = _lastMouseEvent.Button == mouseEvent.Button &&
+                              _lastMouseEvent.Action == mouseEvent.Action &&
+                              _lastMouseEvent.X == mouseEvent.X &&
+                              _lastMouseEvent.Y == mouseEvent.Y &&
+                              Math.Abs(mouseEvent.TimestampMs - _lastMouseEvent.TimestampMs) < DUPLICATE_THRESHOLD_MS;
+
+            if (!isDuplicate)
+            {
+                _lastMouseEvent = mouseEvent;
+            }
+            else
+            {
+                Console.WriteLine($"[DEBUG] 重複マウスイベントを除去: {mouseEvent.Action} at ({mouseEvent.X}, {mouseEvent.Y})");
+            }
+
+            return isDuplicate;
+        }
+    }
+
+    /// <summary>
+    /// キーボードイベントの重複チェック
+    /// </summary>
+    private bool IsDuplicateKeyboardEvent(KeyboardInputEvent keyEvent)
+    {
+        lock (_eventFilterLock)
+        {
+            if (_lastKeyboardEvent == null)
+            {
+                _lastKeyboardEvent = keyEvent;
+                return false;
+            }
+
+            // 同じキー、同じアクション、近い時間の場合は重複とみなす
+            bool isDuplicate = _lastKeyboardEvent.VirtualKeyCode == keyEvent.VirtualKeyCode &&
+                              _lastKeyboardEvent.Action == keyEvent.Action &&
+                              Math.Abs(keyEvent.TimestampMs - _lastKeyboardEvent.TimestampMs) < DUPLICATE_THRESHOLD_MS;
+
+            if (!isDuplicate)
+            {
+                _lastKeyboardEvent = keyEvent;
+            }
+            else
+            {
+                Console.WriteLine($"[DEBUG] 重複キーボードイベントを除去: VK{keyEvent.VirtualKeyCode} {keyEvent.Action}");
+            }
+
+            return isDuplicate;
+        }
     }
 
     public void Dispose()

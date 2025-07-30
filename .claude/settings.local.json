@@ -18,7 +18,11 @@
       "Bash(echo $env:OS)",
       "Bash(mv:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(start src/UI/bin/Debug/net8.0-windows10.0.19041.0/GameMacroAssistant.UI.exe)",
+      "Bash(./src/UI/bin/Debug/net8.0-windows10.0.19041.0/GameMacroAssistant.UI.exe)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }
