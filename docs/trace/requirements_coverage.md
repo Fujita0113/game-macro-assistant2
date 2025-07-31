@@ -25,5 +25,5 @@
 | R-021 | すべての対話可能なUIコントロールはUIAプロパティを公開。 | ✅ Done | T-20250731-accessibility | 028dabb |
 | R-022 | 100%以外のDPIスケーリングに関する制限をドキュメントに明記。 | ✅ Done | - | 8d1ec2e |
 | R-023 | GitHub ActionsでWinAppDriver 1.6.2を使いUIテスト実行。 | ⏳ In-Progress | - | 3b716e4 |
-| R-024 | CoverletとCodecovでテストカバレッジを測定し80%以上を維持。 | ⏳ In-Progress | - | 3b716e4 |
+| R-024 | CoverletとCodecovでテストカバレッジを測定し80%以上を維持。 | ✅ Done | T-20250731-codecov-coverage | c695043 |
 | R-025 | `--headless` オプションでUIを表示せずにマクロを実行。 | ✅ Done | - | 9757375 |
