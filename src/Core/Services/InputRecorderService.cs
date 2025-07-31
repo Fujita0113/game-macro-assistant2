@@ -16,6 +16,8 @@ public class InputRecorderService : IInputRecorder
     private CancellationTokenSource? _recordingCancellation;
     private readonly object _lockObject = new();
     private IWindowsApiHook? _hookService;
+    private int? _stopInitiatedTick;
+    private const int STOP_EVENT_SUPPRESS_MS = 1000;
 
     /// <summary>
     /// 入力記録が開始されているかどうか
@@ -58,6 +60,7 @@ public class InputRecorderService : IInputRecorder
 
             _recordingCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             _isRecording = true;
+            _stopInitiatedTick = null;
         }
 
         try
@@ -97,6 +100,23 @@ public class InputRecorderService : IInputRecorder
     }
 
     /// <summary>
+    /// 停止準備（停止操作前に呼び出して停止関連イベントを抑制）
+    /// </summary>
+    public void PrepareForStop()
+    {
+        if (_isRecording)
+        {
+            _stopInitiatedTick = Environment.TickCount;
+            _hookService?.StartStoppingMode();
+            Console.WriteLine($"[DEBUG] 停止準備開始 - 停止関連イベントを抑制 (開始時刻: {_stopInitiatedTick}ms)");
+        }
+        else
+        {
+            Console.WriteLine("[DEBUG] 停止準備: 記録中ではないためスキップ");
+        }
+    }
+
+    /// <summary>
     /// マクロ記録を停止
     /// R-005: デフォルトはESCキー
     /// </summary>
@@ -117,12 +137,17 @@ public class InputRecorderService : IInputRecorder
             _isRecording = false;
         }
 
+        // 少し待機してから停止処理を実行（停止操作が確実に抑制されるように）
+        await Task.Delay(50, cancellationToken);
+
         // フックサービスを停止
         if (_hookService != null)
         {
             _hookService.InputDetected -= OnHookInputDetected;
             await _hookService.StopHookAsync();
         }
+
+        _stopInitiatedTick = null;
 
         cancellationToStop?.Cancel();
         
@@ -155,16 +180,62 @@ public class InputRecorderService : IInputRecorder
     /// </summary>
     private void OnHookInputDetected(object? sender, InputEvent inputEvent)
     {
-        Console.WriteLine($"[DEBUG] フックイベント受信: {inputEvent.GetType().Name}, 記録中: {IsRecording}");
+        var eventDetail = inputEvent switch
+        {
+            MouseInputEvent m => $"Mouse[{m.Button} {m.Action}] at ({m.X},{m.Y}) ts={m.TimestampMs}",
+            KeyboardInputEvent k => $"Keyboard[VK{k.VirtualKeyCode} {k.Action}] ts={k.TimestampMs}",
+            _ => $"{inputEvent.GetType().Name} ts={inputEvent.TimestampMs}"
+        };
+        
+        Console.WriteLine($"[DEBUG] フックイベント受信: {eventDetail}, 記録中: {IsRecording}");
+        
+        // 停止抑制期間チェック
+        if (_stopInitiatedTick.HasValue)
+        {
+            var timeSinceStop = Math.Abs(inputEvent.TimestampMs - _stopInitiatedTick.Value);
+            Console.WriteLine($"[DEBUG] 停止開始からの経過時間: {timeSinceStop}ms (抑制閾値: {STOP_EVENT_SUPPRESS_MS}ms)");
+            
+            if (timeSinceStop <= STOP_EVENT_SUPPRESS_MS)
+            {
+                Console.WriteLine("[DEBUG] 停止操作に伴うイベントを無視 - 抑制期間内");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] 抑制期間を超過 - 通常処理に移行");
+            }
+        }
+        
+        // ESCキー押下での自動停止チェック（将来の機能）
+        if (IsRecording && inputEvent is KeyboardInputEvent keyEvent)
+        {
+            if (keyEvent.VirtualKeyCode == StopRecordingKey && keyEvent.Action == KeyboardAction.Down)
+            {
+                Console.WriteLine($"[DEBUG] 停止キー（VK{StopRecordingKey}）検出 - 記録停止を開始");
+                // 非同期で停止処理を実行（フックスレッドをブロックしないため）
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await StopRecordingAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[DEBUG] 自動停止エラー: {ex.Message}");
+                    }
+                });
+                return; // 停止キー自体は記録しない
+            }
+        }
         
         if (IsRecording)
         {
-            Console.WriteLine("[DEBUG] InputCapturedイベントを発火");
+            Console.WriteLine($"[DEBUG] InputCapturedイベントを発火: {eventDetail}");
             OnInputCaptured(inputEvent, null); // スクリーンショットは今後実装
         }
         else
         {
-            Console.WriteLine($"[DEBUG] 記録中ではないため、イベントを無視: {inputEvent.GetType().Name}");
+            Console.WriteLine($"[DEBUG] 記録中ではないため、イベントを無視: {eventDetail}");
         }
     }
 
