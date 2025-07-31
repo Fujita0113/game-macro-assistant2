@@ -22,7 +22,7 @@
 | R-018 | パスフレーズ8桁以上必須、3回失敗で読み込みをキャンセル。 | ❌ Todo | - | - |
 | R-019 | クラッシュダンプを保存しユーザー同意の上で送信。 | ❌ Todo | - | - |
 | R-020 | CPU≤15%, RAM≤300MB超過時にHigh Loadトースト通知。 | ❌ Todo | - | - |
-| R-021 | すべての対話可能なUIコントロールはUIAプロパティを公開。 | ❌ Todo | - | - |
+| R-021 | すべての対話可能なUIコントロールはUIAプロパティを公開。 | ✅ Done | T-20250731-accessibility | 028dabb |
 | R-022 | 100%以外のDPIスケーリングに関する制限をドキュメントに明記。 | ✅ Done | - | 8d1ec2e |
 | R-023 | GitHub ActionsでWinAppDriver 1.6.2を使いUIテスト実行。 | ⏳ In-Progress | - | 3b716e4 |
 | R-024 | CoverletとCodecovでテストカバレッジを測定し80%以上を維持。 | ⏳ In-Progress | - | 3b716e4 |
