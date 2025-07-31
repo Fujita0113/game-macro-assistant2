@@ -1,0 +1,93 @@
+<Window x:Class="GameMacroAssistant.UI.Views.CrashDumpConsentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="クラッシュレポート送信の同意"
+        Width="500"
+        Height="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="True"
+        AutomationProperties.Name="クラッシュレポート送信の同意ダイアログ">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" 
+                   Text="クラッシュレポート送信の同意"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"
+                   AutomationProperties.HeadingLevel="Level1"/>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
+                    アプリケーションの品質向上のため、クラッシュ発生時に技術的な診断情報を開発者に送信することがあります。
+                </TextBlock>
+
+                <TextBlock Text="送信される情報："
+                           FontWeight="Bold"
+                           Margin="0,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Margin="20,0,0,15">
+                    • システム情報（OS、.NET バージョン等）<LineBreak/>
+                    • エラー詳細（例外、スタックトレース）<LineBreak/>
+                    • アプリケーション状態（匿名化済み）
+                </TextBlock>
+
+                <TextBlock Text="送信されない情報："
+                           FontWeight="Bold"
+                           Margin="0,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Margin="20,0,0,15">
+                    • 個人情報、マクロ内容、入力データ<LineBreak/>
+                    • スクリーンショット、パスフレーズ
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                    詳細は「プライバシーポリシー」をご確認ください。
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" FontStyle="Italic">
+                    この設定は後から設定画面で変更できます。
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+            
+            <Button Name="DetailsButton"
+                    Content="詳細を見る"
+                    Width="100"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Click="DetailsButton_Click"
+                    AutomationProperties.Name="詳細を見るボタン"/>
+            
+            <Button Name="DeclineButton"
+                    Content="同意しない"
+                    Width="100"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Click="DeclineButton_Click"
+                    AutomationProperties.Name="同意しないボタン"/>
+            
+            <Button Name="AcceptButton"
+                    Content="同意する"
+                    Width="100"
+                    Height="30"
+                    IsDefault="True"
+                    Click="AcceptButton_Click"
+                    AutomationProperties.Name="同意するボタン"/>
+        </StackPanel>
+    </Grid>
+</Window>

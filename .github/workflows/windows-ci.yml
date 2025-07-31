@@ -24,8 +24,8 @@ jobs:
     - name: Build
       run: dotnet build GameMacroAssistant.sln -c Release --no-restore
 
-    - name: Run Unit Tests
-      run: dotnet test src/Tests/GameMacroAssistant.Tests.csproj -c Release --no-build --logger "trx;LogFileName=test-results.trx"
+    - name: Run Unit Tests with Coverage
+      run: dotnet test src/Tests/GameMacroAssistant.Tests.csproj -c Release --no-build --logger "trx;LogFileName=test-results.trx" --settings coverlet.runsettings --collect:"XPlat Code Coverage"
 
     - name: Install WinAppDriver
       run: |
@@ -34,3 +34,11 @@ jobs:
 
     - name: Run UI Tests
       run: dotnet test src/Tests/GameMacroAssistant.Tests.csproj -c Release --no-build
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: '**/coverage.cobertura.xml'
+        fail_ci_if_error: true
+        verbose: true

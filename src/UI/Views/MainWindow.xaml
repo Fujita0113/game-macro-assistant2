@@ -15,22 +15,36 @@
         <ToolBar Grid.Row="0">
             <Button Content="🔴 記録開始" Width="100" Height="30" Margin="5" 
                     Command="{Binding StartRecordingCommand}"
-                    IsEnabled="{Binding IsRecording, Converter={x:Static converters:InverseBoolConverter.Instance}}"/>
+                    IsEnabled="{Binding IsRecording, Converter={x:Static converters:InverseBoolConverter.Instance}}"
+                    AutomationProperties.Name="記録開始"
+                    AutomationProperties.HelpText="マクロの記録を開始します"/>
             <Button Content="⏹️ 停止" Width="100" Height="30" Margin="5"
                     Command="{Binding StopRecordingCommand}"
                     IsEnabled="{Binding IsRecording}"
-                    PreviewMouseDown="StopButton_PreviewMouseDown"/>
+                    PreviewMouseDown="StopButton_PreviewMouseDown"
+                    AutomationProperties.Name="停止"
+                    AutomationProperties.HelpText="マクロの記録を停止します"/>
             <Separator/>
             <Button Content="▶️ 再生" Width="100" Height="30" Margin="5"
-                    Command="{Binding PlayMacroCommand}"/>
+                    Command="{Binding PlayMacroCommand}"
+                    AutomationProperties.Name="再生"
+                    AutomationProperties.HelpText="選択されたマクロを再生します"/>
             <Button Content="⚙️ 設定" Width="100" Height="30" Margin="5"
-                    Command="{Binding OpenSettingsCommand}"/>
+                    Command="{Binding OpenSettingsCommand}"
+                    AutomationProperties.Name="設定"
+                    AutomationProperties.HelpText="アプリケーションの設定を開きます"/>
         </ToolBar>
 
         <!-- メインコンテンツエリア -->
-        <TabControl Grid.Row="1" Margin="10">
-            <TabItem Header="マクロ一覧">
-                <ListBox ItemsSource="{Binding Macros}">
+        <TabControl Grid.Row="1" Margin="10"
+                    AutomationProperties.Name="メインタブコントロール"
+                    AutomationProperties.HelpText="マクロ一覧とエディタを切り替えます">
+            <TabItem Header="マクロ一覧"
+                     AutomationProperties.Name="マクロ一覧"
+                     AutomationProperties.HelpText="作成されたマクロの一覧を表示します">
+                <ListBox ItemsSource="{Binding Macros}"
+                         AutomationProperties.Name="マクロリスト"
+                         AutomationProperties.HelpText="作成されたマクロのリストです。選択して操作できます">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -42,7 +56,9 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
-            <TabItem Header="エディタ">
+            <TabItem Header="エディタ"
+                     AutomationProperties.Name="エディタ"
+                     AutomationProperties.HelpText="マクロのビジュアル編集画面です">
                 <Grid>
                     <!-- TODO: ビジュアルエディタコンテンツ -->
                     <TextBlock Text="ビジュアルエディタ（実装予定）" 
