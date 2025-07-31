@@ -18,7 +18,8 @@
                     IsEnabled="{Binding IsRecording, Converter={x:Static converters:InverseBoolConverter.Instance}}"/>
             <Button Content="⏹️ 停止" Width="100" Height="30" Margin="5"
                     Command="{Binding StopRecordingCommand}"
-                    IsEnabled="{Binding IsRecording}"/>
+                    IsEnabled="{Binding IsRecording}"
+                    PreviewMouseDown="StopButton_PreviewMouseDown"/>
             <Separator/>
             <Button Content="▶️ 再生" Width="100" Height="30" Margin="5"
                     Command="{Binding PlayMacroCommand}"/>
