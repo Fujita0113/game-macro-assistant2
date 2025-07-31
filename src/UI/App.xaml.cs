@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using ReactiveUI;
 using Splat;
 using GameMacroAssistant.Core.Services;
 using GameMacroAssistant.Core.Models;
+using GameMacroAssistant.UI.Services;
 
 namespace GameMacroAssistant.UI;
 
@@ -76,6 +78,12 @@ public partial class App : Application
         // ReactiveUI 初期化
         Locator.CurrentMutable.InitializeReactiveUI();
 
+        // Global exception handlers
+        SetupExceptionHandlers();
+
+        // Check for pending crash dumps on startup
+        await CheckPendingCrashDumpsAsync();
+
         base.OnStartup(e);
     }
 
@@ -87,12 +95,95 @@ public partial class App : Application
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        // Core layer services (まだ実装クラスがないため、後で追加)
+        // Core layer services
+        services.AddHttpClient<ICrashDumpService, CrashDumpService>();
+        services.AddSingleton<ICrashDumpService, CrashDumpService>();
+        
+        // UI layer services
+        services.AddSingleton<IDialogService, DialogService>();
+        
+        // Other services (まだ実装クラスがないため、後で追加)
         // services.AddSingleton<IInputRecorder, InputRecorder>();
         // services.AddSingleton<IScreenshotProvider, ScreenshotProvider>();
-
-        // UI layer services
         // services.AddTransient<MainWindowViewModel>();
         // services.AddTransient<EditorViewModel>();
+    }
+
+    private void SetupExceptionHandlers()
+    {
+        // Handle WPF unhandled exceptions
+        DispatcherUnhandledException += async (sender, e) =>
+        {
+            await HandleUnhandledException(e.Exception);
+            e.Handled = true;
+        };
+
+        // Handle application domain unhandled exceptions
+        AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
+        {
+            if (e.ExceptionObject is Exception exception)
+            {
+                await HandleUnhandledException(exception);
+            }
+        };
+
+        // Handle task scheduler unobserved exceptions
+        System.Threading.Tasks.TaskScheduler.UnobservedTaskException += async (sender, e) =>
+        {
+            await HandleUnhandledException(e.Exception);
+            e.SetObserved();
+        };
+    }
+
+    private async System.Threading.Tasks.Task HandleUnhandledException(Exception exception)
+    {
+        try
+        {
+            var crashDumpService = _host?.Services.GetService<ICrashDumpService>();
+            if (crashDumpService != null)
+            {
+                await crashDumpService.GenerateCrashDumpAsync(exception);
+            }
+
+            var logger = _host?.Services.GetService<ILogger<App>>();
+            logger?.LogCritical(exception, "Unhandled exception occurred");
+
+            // Show error dialog to user
+            MessageBox.Show($"予期しないエラーが発生しました。\n\nエラー詳細: {exception.Message}\n\nアプリケーションを終了します。",
+                          "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            // Last resort - at least try to show something to the user
+            MessageBox.Show($"重大なエラーが発生しました: {ex.Message}", "エラー", 
+                          MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async System.Threading.Tasks.Task CheckPendingCrashDumpsAsync()
+    {
+        try
+        {
+            var crashDumpService = _host?.Services.GetService<ICrashDumpService>();
+            if (crashDumpService == null) return;
+
+            var hasPendingDumps = await crashDumpService.HasPendingCrashDumpsAsync();
+            if (hasPendingDumps)
+            {
+                var consent = await crashDumpService.RequestUploadConsentAsync();
+                if (consent)
+                {
+                    await crashDumpService.UploadPendingDumpsAsync();
+                }
+            }
+
+            // Cleanup old dumps regardless
+            await crashDumpService.CleanupOldDumpsAsync();
+        }
+        catch (Exception ex)
+        {
+            var logger = _host?.Services.GetService<ILogger<App>>();
+            logger?.LogError(ex, "Failed to check pending crash dumps");
+        }
     }
 }
