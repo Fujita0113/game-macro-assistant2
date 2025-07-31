@@ -6,14 +6,12 @@
 
   <!-- ───── ワークフロー ───── -->
   <ワークフロー>
-    0. **Create / Update 日次ログ**
-       - `docs/daily/YYYY-MM-DD.md` を新規作成または追記
-       - 必須セクション: Context / Current Tasks / Blockers / Next Actions / **Result**
-       - その日のビルド・テスト結果 (成功 / 失敗テスト一覧) を Result に必ず書く
-
-    1. **Update development_plan.md (大局観)**
-       - エピック進捗 %、優先度、Blockers、Issue 番号を反映
-       - 詳細経緯は日次ログにのみ記録し重複させない
+    1. **タスク参照**
+       - 以下の必読ファイルを必ず確認
+         - `docs/requirements/*.md`（要件定義一式）
+         - `docs/pm/tasks/*.md`（★PM が最新で生成したタスク群）
+       - 各タスクごとに **Acceptance Criteria** を満たす失敗テストを先に作成
+       - 実装 → テストグリーン化 → PR
 
     2. **Think → Plan → Code → Test → Commit**
        - まず「計画」を提示しユーザーの 🟢 *OK* を待つ
@@ -25,20 +23,12 @@
        - 失敗・警告が 1 件でもあれば  
          a. `docs/daily/YYYY-MM-DD.md` の Result に赤字記入  
          b. **Never** マージ完了や「Done」と宣言しない  
-
-    4. **自動 Issue 生成トリガ**
-       - 以下のいずれかで `python scripts/create_issue.py` を実行
-         1. **同一テストを 3 回連続で失敗**  
-            `python scripts/create_issue.py "Test XYZ failing 3x"`
-         2. **バグ or 実装が 2 ターンで決着しない**  
-            詳細 Markdown を `docs/issue_drafts/*.md` に書き  
-            `python scripts/create_issue.py "Complex bug" -f docs/…`
-       - 生成された Issue 番号を development_plan.md の Blockers に追記
-
-    5. **要件整合性チェック**
-       - 現行要件: **v3.3**
-       - 矛盾・不足を発見したら「❓ ask‑codex」Issueを即時作成して相談
-
+    4. **要件カバレッジ表の更新 (必須)**
+       - マージ完了後、`docs/trace/requirements_coverage.md` を最新化する  
+         a. 自分が実装したタスク *.md の `covers:` を解析  
+         b. ステータスを ✅ Done に変更しコミットハッシュを記入  
+       - スクリプト例: `python scripts/update_coverage.py`
+       - 表のテンプレートを崩さないこと（列順・ヘッダー固定）
   </ワークフロー>
 
   <!-- ───── 設計スタイル ───── -->
@@ -77,5 +67,23 @@
 
     6. **パフォーマンスガード**
        - `perf` テストで CPU・RAM 閾値を検証。超過でビルド失敗とする
+
+    7. **実装完了判定ガード**
+       - 「実装完了」「Done」「マージ可能」と宣言する条件を以下に限定  
+         a. 単体・統合・UI テスト **全緑** (GitHub Actions)  
+         b. 手動確認ステップ **Acceptance Checklist** を満たす  
+       - Acceptance Checklist は開発者自身が `docs/daily/YYYY-MM-DD.md`
+         の Result に貼り付けること  
+           - ✅ ボタン押下 → 記録開始 → 停止 → 再生  
+           - ✅ 画面遷移にフリーズなし  
+           - ✅ High‑Load トーストなし  
+       - いずれか NG の場合は自動で  
+         `python scripts/create_issue.py "Acceptance failed" -b "$(cat docs/daily/…)"`
+
+    8. **UI 不具合の検知義務**
+       - ユーザー(=あなた)が「操作して動かない」と報告した時点で  
+         Claude は *必ず* 状況を再現し、Issue を立てるか
+         修正 PR を提案するまで **実装完了と宣言しない**  
+       - 「無限ループになっています」など原因推測だけで完了扱いは不可
   </制約>
 </claude>
