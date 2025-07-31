@@ -132,6 +132,7 @@ public class MainWindowViewModel : ReactiveObject, IActivatableViewModel
             
             // 即座に記録状態を無効化（追加のイベント記録を防ぐ）
             IsRecording = false;
+            Console.WriteLine($"[DEBUG UI] ReactiveCommandで記録状態を無効化");
             
             await _inputRecorder.StopRecordingAsync();
 
@@ -201,41 +202,39 @@ public class MainWindowViewModel : ReactiveObject, IActivatableViewModel
             };
             Console.WriteLine($"[DEBUG UI] イベント受信: {eventInfo}, Timestamp={e.Event.TimestampMs}ms, 記録中: {IsRecording}");
             
-            // 停止ボタン領域のクリックをフィルタリング
-            if (IsRecording && e.Event is MouseInputEvent mouseEvent)
+            // 記録中でない場合は早期リターン
+            if (!IsRecording)
             {
-                if (_stopButtonBounds.Contains(mouseEvent.X, mouseEvent.Y))
-                {
-                    Console.WriteLine($"[DEBUG UI] 停止ボタン領域のクリックを除外: ({mouseEvent.X},{mouseEvent.Y})");
-                    return;
-                }
+                Console.WriteLine($"[DEBUG UI] 記録中ではないため、イベント追加をスキップ");
+                return;
+            }
+            
+            // キーボードUpイベントをフィルタリング（Down のみ記録してユーザー体験を向上）
+            if (e.Event is KeyboardInputEvent keyEvent && keyEvent.Action == KeyboardAction.Up)
+            {
+                Console.WriteLine($"[DEBUG UI] キーボードUpイベントをフィルタリング: VK{keyEvent.VirtualKeyCode}");
+                StatusText = $"入力検出: {eventInfo} [録:{_currentRecordingEvents.Count}] (Up無視)";
+                return;
             }
             
             // 記録中の場合は、イベントをリストに追加
-            if (IsRecording)
+            _currentRecordingEvents.Add(e.Event);
+            Console.WriteLine($"[DEBUG UI] イベント追加完了。現在のイベント数: {_currentRecordingEvents.Count}");
+            
+            // 現在記録されているイベントの詳細を出力
+            Console.WriteLine($"[DEBUG UI] === 現在記録中のイベント一覧 ===");
+            for (int i = 0; i < _currentRecordingEvents.Count; i++)
             {
-                _currentRecordingEvents.Add(e.Event);
-                Console.WriteLine($"[DEBUG UI] イベント追加完了。現在のイベント数: {_currentRecordingEvents.Count}");
-                
-                // 現在記録されているイベントの詳細を出力
-                Console.WriteLine($"[DEBUG UI] === 現在記録中のイベント一覧 ===");
-                for (int i = 0; i < _currentRecordingEvents.Count; i++)
+                var evt = _currentRecordingEvents[i];
+                var info = evt switch 
                 {
-                    var evt = _currentRecordingEvents[i];
-                    var info = evt switch 
-                    {
-                        MouseInputEvent m => $"  [{i+1}] Mouse[{m.Button} {m.Action}] at ({m.X},{m.Y}) ts={m.TimestampMs}",
-                        KeyboardInputEvent k => $"  [{i+1}] Keyboard[VK{k.VirtualKeyCode} {k.Action}] ts={k.TimestampMs}",
-                        _ => $"  [{i+1}] {evt.GetType().Name} ts={evt.TimestampMs}"
-                    };
-                    Console.WriteLine(info);
-                }
-                Console.WriteLine($"[DEBUG UI] === イベント一覧終了 ===");
+                    MouseInputEvent m => $"  [{i+1}] Mouse[{m.Button} {m.Action}] at ({m.X},{m.Y}) ts={m.TimestampMs}",
+                    KeyboardInputEvent k => $"  [{i+1}] Keyboard[VK{k.VirtualKeyCode} {k.Action}] ts={k.TimestampMs}",
+                    _ => $"  [{i+1}] {evt.GetType().Name} ts={evt.TimestampMs}"
+                };
+                Console.WriteLine(info);
             }
-            else
-            {
-                Console.WriteLine($"[DEBUG UI] 記録中ではないため、イベント追加をスキップ");
-            }
+            Console.WriteLine($"[DEBUG UI] === イベント一覧終了 ===");
             
             StatusText = $"入力検出: {eventInfo} [録:{_currentRecordingEvents.Count}]";
         });
