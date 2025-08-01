@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GameMacroAssistant.Core</name>
+    </assembly>
+    <members>
+        <member name="T:GameMacroAssistant.Core.Models.InputEvent">
+            <summary>
+            フック対象の入力イベント（座標・タイムスタンプ）
+            R-002, R-003: マウス・キーボード操作の記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.InputEvent.Id">
+            <summary>イベントの一意識別子</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.InputEvent.TimestampMs">
+            <summary>イベント発生時刻（記録開始からの相対時間、ミリ秒）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.InputEvent.Type">
+            <summary>イベント種別</summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Models.InputEvent.ToString">
+            <summary>デバッグ用の詳細情報を文字列で取得</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MouseInputEvent">
+            <summary>
+            マウス入力イベント
+            R-002: スクリーン絶対座標(px)、ボタン種別、押下時間を記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MouseInputEvent.X">
+            <summary>スクリーン絶対座標 X (px)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MouseInputEvent.Y">
+            <summary>スクリーン絶対座標 Y (px)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MouseInputEvent.Button">
+            <summary>マウスボタン種別</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MouseInputEvent.Action">
+            <summary>マウス操作種別</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MouseInputEvent.PressDurationMs">
+            <summary>押下時間（ミリ秒）、Action がClick/Up の場合のみ有効</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.KeyboardInputEvent">
+            <summary>
+            キーボード入力イベント
+            R-003: 仮想キーコード、およびキーの押下・離上時刻を記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.KeyboardInputEvent.VirtualKeyCode">
+            <summary>仮想キーコード (1-255)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.KeyboardInputEvent.Action">
+            <summary>キーボード操作種別</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.KeyboardInputEvent.Modifiers">
+            <summary>修飾キー（Ctrl, Alt, Shift, Win）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.KeyboardInputEvent.PressDurationMs">
+            <summary>押下時間（ミリ秒）、Action がPress/Up の場合のみ有効</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.InputEventType">
+            <summary>入力イベント種別</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MouseButton">
+            <summary>マウスボタン種別</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MouseAction">
+            <summary>マウス操作種別</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.KeyboardAction">
+            <summary>キーボード操作種別</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.KeyModifiers">
+            <summary>修飾キー</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.InputEventArgs">
+            <summary>
+            入力イベント引数（IInputRecorder.InputCaptured イベント用）
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.Macro">
+            <summary>
+            マクロ定義 (.gma.json スキーマ準拠)
+            R-017: スキーマバージョンを含む
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.Macro.Version">
+            <summary>スキーマバージョン</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.Macro.Metadata">
+            <summary>メタデータ</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.Macro.Steps">
+            <summary>マクロステップ配列</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MacroMetadata">
+            <summary>
+            マクロメタデータ
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroMetadata.Name">
+            <summary>マクロ表示名</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroMetadata.Description">
+            <summary>説明（オプション）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroMetadata.Created">
+            <summary>作成日時 (ISO 8601)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroMetadata.Modified">
+            <summary>最終更新日時 (ISO 8601)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroMetadata.Encrypted">
+            <summary>パスフレーズで暗号化されているか</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MacroStep">
+            <summary>
+            マクロステップ（個別操作）
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroStep.Id">
+            <summary>一意識別子</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroStep.Type">
+            <summary>ステップ種別</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroStep.TimestampMs">
+            <summary>相対タイムスタンプ（ミリ秒）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.MacroStep.Data">
+            <summary>ステップデータ</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MacroStepType">
+            <summary>マクロステップ種別</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.MouseStepData">
+            <summary>マウスデータ</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.KeyboardStepData">
+            <summary>キーボードデータ</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.ImageStepData">
+            <summary>画像認識データ</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.ImageStepData.Template">
+            <summary>Base64エンコードされたPNG画像</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.ImageStepData.Region">
+            <summary>認識領域</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.ImageStepData.Threshold">
+            <summary>閾値設定</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.ImageRegion">
+            <summary>画像認識領域</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.ImageThreshold">
+            <summary>画像認識閾値</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.ImageThreshold.Ssim">
+            <summary>SSIM閾値 (0.0-1.0)</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.ImageThreshold.PixelDiff">
+            <summary>ピクセル差分閾値 (0.0-1.0)</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.DelayStepData">
+            <summary>遅延データ</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.DelayStepData.Duration">
+            <summary>遅延時間（ミリ秒）</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Models.CommentStepData">
+            <summary>コメントデータ</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Models.CommentStepData.Text">
+            <summary>コメントテキスト</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.IInputRecorder">
+            <summary>
+            マウス・キーボード入力をフックし、イベントを記録するサービス
+            R-002, R-003: 座標・ボタン種別・押下時間・仮想キーコードを記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IInputRecorder.IsRecording">
+            <summary>
+            入力記録が開始されているかどうか
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IInputRecorder.StopRecordingKey">
+            <summary>
+            記録停止キー（デフォルト: ESC）
+            R-005: ユーザーが設定画面で変更可能
+            </summary>
+        </member>
+        <member name="E:GameMacroAssistant.Core.Services.IInputRecorder.InputCaptured">
+            <summary>
+            入力イベントがキャプチャされた時に発生
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IInputRecorder.StartRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を開始
+            R-001: UI上のボタンクリックで開始
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録開始タスク</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IInputRecorder.StopRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を停止
+            R-005: デフォルトはESCキー
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録停止タスク</returns>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.InputRecorderService">
+            <summary>
+            マウス・キーボード入力をフックし、イベントを記録するサービス実装
+            R-002, R-003: 座標・ボタン種別・押下時間・仮想キーコードを記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.InputRecorderService.IsRecording">
+            <summary>
+            入力記録が開始されているかどうか
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.InputRecorderService.StopRecordingKey">
+            <summary>
+            記録停止キー（デフォルト: ESC = 27）
+            </summary>
+        </member>
+        <member name="E:GameMacroAssistant.Core.Services.InputRecorderService.InputCaptured">
+            <summary>
+            入力イベントがキャプチャされた時に発生
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.StartRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を開始
+            R-001: UI上のボタンクリックで開始
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録開始タスク</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.PrepareForStop">
+            <summary>
+            停止準備（停止操作前に呼び出して停止関連イベントを抑制）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.StopRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を停止
+            R-005: デフォルトはESCキー
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録停止タスク</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.SimulateInputCapture(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])">
+            <summary>
+            イベントを発生させる（テスト用およびフック実装時に使用）
+            </summary>
+            <param name="inputEvent">入力イベント</param>
+            <param name="screenshot">スクリーンショット</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.OnHookInputDetected(System.Object,GameMacroAssistant.Core.Models.InputEvent)">
+            <summary>
+            Windows APIフックからの入力イベントを処理
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.OnInputCaptured(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])">
+            <summary>
+            イベントを発生させる（継承クラスおよび内部処理用）
+            </summary>
+            <param name="inputEvent">入力イベント</param>
+            <param name="screenshot">スクリーンショット</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.Dispose">
+            <summary>
+            リソースを解放
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.IScreenshotProvider">
+            <summary>
+            Desktop Duplication API と GDI BitBlt フォールバックによるスクリーンショット取得
+            R-004, R-006: 50ms以内キャプチャ + リトライ + フォールバック
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IScreenshotProvider.IsDesktopDuplicationAvailable">
+            <summary>
+            Desktop Duplication API が利用可能かどうか
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IScreenshotProvider.CurrentMethod">
+            <summary>
+            現在のキャプチャ方式
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IScreenshotProvider.CaptureAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            スクリーンショットを取得
+            R-004: 50ms以内、失敗時は10msバックオフで最大2回リトライ
+            </summary>
+            <param name="timeoutMs">タイムアウト（ミリ秒）</param>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>キャプチャ結果</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IScreenshotProvider.ForceMethod(GameMacroAssistant.Core.Services.CaptureMethod)">
+            <summary>
+            キャプチャ方式を強制変更（主にテスト用）
+            </summary>
+            <param name="method">強制使用するキャプチャ方式</param>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.CaptureMethod">
+            <summary>
+            キャプチャ方式
+            </summary>
+        </member>
+        <member name="F:GameMacroAssistant.Core.Services.CaptureMethod.DesktopDuplication">
+            <summary>Desktop Duplication API</summary>
+        </member>
+        <member name="F:GameMacroAssistant.Core.Services.CaptureMethod.GdiFallback">
+            <summary>GDI BitBlt フォールバック</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.ScreenshotResult">
+            <summary>
+            スクリーンショットキャプチャ結果
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.ImageData">
+            <summary>PNG画像データ（アクティブディスプレイのネイティブ解像度）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.Timestamp">
+            <summary>キャプチャ時刻</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.Method">
+            <summary>使用されたキャプチャ方式</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.RetryCount">
+            <summary>リトライ回数</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.DurationMs">
+            <summary>キャプチャにかかった時間（ミリ秒）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.HasError">
+            <summary>エラーが発生したかどうか</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.ErrorCode">
+            <summary>エラーコード（Err-CAP等）</summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.ErrorMessage">
+            <summary>エラーメッセージ</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.IWindowsApiHook">
+            <summary>
+            Windows API フック（マウス・キーボード）による入力監視
+            R-001, R-002: 低遅延フック + グローバル入力監視
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IWindowsApiHook.IsHookActive">
+            <summary>
+            フックが現在アクティブかどうか
+            </summary>
+        </member>
+        <member name="E:GameMacroAssistant.Core.Services.IWindowsApiHook.InputDetected">
+            <summary>
+            入力イベントが発生した時のイベント
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StartHookAsync(System.Threading.CancellationToken)">
+            <summary>
+            マウス・キーボードフックを開始
+            R-001: 5ms以内の低遅延で入力をキャプチャ
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>フック開始のTask</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StopHookAsync">
+            <summary>
+            フックを停止
+            </summary>
+            <returns>フック停止のTask</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.SuppressInput(System.Int32)">
+            <summary>
+            特定の入力を一時的に無視（マクロ実行中の自分自身の入力を除外）
+            </summary>
+            <param name="suppressDurationMs">抑制時間（ミリ秒）</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StartStoppingMode">
+            <summary>
+            停止直前モードを開始（停止操作に関連するイベントを抑制）
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.MacroExecutor">
+            <summary>
+            Simplified macro execution engine for headless mode.
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.MacroExecutor.RunAsync(GameMacroAssistant.Core.Models.Macro,System.Threading.CancellationToken)">
+            <summary>
+            Execute a macro. Currently this only logs steps to the console.
+            </summary>
+            <param name="macro">Macro definition</param>
+            <param name="cancellationToken">Cancellation token</param>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.ScreenshotProviderService">
+            <summary>
+            Desktop Duplication API と GDI BitBlt フォールバックによるスクリーンショット実装
+            R-004, R-006: 50ms以内キャプチャ + リトライ + フォールバック
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.WindowsApiHookService">
+            <summary>
+            Windows API 低レベルフック実装
+            R-001, R-002: マウス・キーボード入力の低遅延監視
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.StartStoppingMode">
+            <summary>
+            停止直前モードを開始（停止操作に関連するイベントを抑制）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.ProcessMouseEvent(System.Int32,GameMacroAssistant.Core.Services.WindowsApiHookService.MSLLHOOKSTRUCT)">
+            <summary>
+            マウスイベントを統合処理（DOWN/UPペアを1つのクリックイベントにまとめる）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.IsDuplicateMouseEvent(GameMacroAssistant.Core.Models.MouseInputEvent)">
+            <summary>
+            マウスイベントの重複チェック
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.IsDuplicateKeyboardEvent(GameMacroAssistant.Core.Models.KeyboardInputEvent)">
+            <summary>
+            キーボードイベントの重複チェック
+            </summary>
+        </member>
+    </members>
+</doc>

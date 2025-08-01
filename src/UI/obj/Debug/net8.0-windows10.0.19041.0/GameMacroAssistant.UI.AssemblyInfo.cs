@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("WPF user interface for GameMacroAssistant")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5cbd664fbeb83ac4deee74a939c49dde22e43ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("GameMacroAssistant UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GameMacroAssistant.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

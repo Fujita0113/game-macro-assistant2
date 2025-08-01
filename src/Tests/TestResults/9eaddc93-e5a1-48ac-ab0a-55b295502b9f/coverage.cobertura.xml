@@ -1,0 +1,1282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="0.7226" branch-rate="0.7142000000000001" version="1.9" timestamp="1753781343" lines-covered="198" lines-valid="274" branches-covered="40" branches-valid="56">
+  <sources>
+    <source>C:\Users\yufuj\Desktop\gameAutoProject2\src\</source>
+  </sources>
+  <packages>
+    <package name="CLI" line-rate="0.909" branch-rate="0.9166" complexity="12">
+      <classes>
+        <class name="GameMacroAssistant.CLI.Program/&lt;Main&gt;d__0" filename="CLI\Program.cs" line-rate="0.909" branch-rate="0.9166" complexity="12">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0.909" branch-rate="0.9166" complexity="12">
+              <lines>
+                <line number="11" hits="5" branch="False" />
+                <line number="12" hits="5" branch="False" />
+                <line number="13" hits="5" branch="False" />
+                <line number="15" hits="29" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="164" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="16" hits="7" branch="False" />
+                <line number="17" hits="11" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="92" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="18" hits="6" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="114" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="19" hits="7" branch="False" />
+                <line number="21" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="186" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="22" hits="1" branch="False" />
+                <line number="23" hits="1" branch="False" />
+                <line number="25" hits="1" branch="False" />
+                <line number="28" hits="4" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="220" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="29" hits="1" branch="False" />
+                <line number="30" hits="1" branch="False" />
+                <line number="31" hits="1" branch="False" />
+                <line number="35" hits="3" branch="False" />
+                <line number="36" hits="3" branch="False" />
+                <line number="37" hits="2" branch="False" />
+                <line number="38" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="306" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="44" hits="1" branch="False" />
+                <line number="45" hits="1" branch="False" />
+                <line number="46" hits="1" branch="False" />
+                <line number="47" hits="1" branch="False" />
+                <line number="48" hits="1" branch="False" />
+                <line number="50" hits="2" branch="False" />
+                <line number="51" hits="2" branch="False" />
+                <line number="52" hits="2" branch="False" />
+                <line number="53" hits="2" branch="False" />
+                <line number="55" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="11" hits="5" branch="False" />
+            <line number="12" hits="5" branch="False" />
+            <line number="13" hits="5" branch="False" />
+            <line number="15" hits="29" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="164" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="16" hits="7" branch="False" />
+            <line number="17" hits="11" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="92" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="18" hits="6" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="114" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="19" hits="7" branch="False" />
+            <line number="21" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="186" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="22" hits="1" branch="False" />
+            <line number="23" hits="1" branch="False" />
+            <line number="25" hits="1" branch="False" />
+            <line number="28" hits="4" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="220" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="29" hits="1" branch="False" />
+            <line number="30" hits="1" branch="False" />
+            <line number="31" hits="1" branch="False" />
+            <line number="35" hits="3" branch="False" />
+            <line number="36" hits="3" branch="False" />
+            <line number="37" hits="2" branch="False" />
+            <line number="38" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="306" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="44" hits="1" branch="False" />
+            <line number="45" hits="1" branch="False" />
+            <line number="46" hits="1" branch="False" />
+            <line number="47" hits="1" branch="False" />
+            <line number="48" hits="1" branch="False" />
+            <line number="50" hits="2" branch="False" />
+            <line number="51" hits="2" branch="False" />
+            <line number="52" hits="2" branch="False" />
+            <line number="53" hits="2" branch="False" />
+            <line number="55" hits="5" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="GameMacroAssistant.Core" line-rate="0.9229999999999999" branch-rate="0.8529000000000001" complexity="91">
+      <classes>
+        <class name="GameMacroAssistant.Core.Services.InputRecorderService" filename="Core\Services\InputRecorderService.cs" line-rate="0.9298000000000001" branch-rate="0.8332999999999999" complexity="16">
+          <methods>
+            <method name="get_IsRecording" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="25" hits="16" branch="False" />
+                <line number="26" hits="16" branch="False" />
+                <line number="27" hits="16" branch="False" />
+                <line number="28" hits="16" branch="False" />
+                <line number="30" hits="16" branch="False" />
+              </lines>
+            </method>
+            <method name="get_StopRecordingKey" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="37" hits="15" branch="False" />
+              </lines>
+            </method>
+            <method name="SimulateInputCapture" signature="(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="134" hits="6" branch="False" />
+                <line number="135" hits="6" branch="False" />
+                <line number="137" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="19" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="138" hits="1" branch="False" />
+                <line number="140" hits="4" branch="False" />
+                <line number="141" hits="5" branch="False" />
+              </lines>
+            </method>
+            <method name="OnInputCaptured" signature="(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])" line-rate="1" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="149" hits="4" branch="False" />
+                <line number="150" hits="4" branch="False" />
+                <line number="151" hits="4" branch="False" />
+                <line number="152" hits="4" branch="False" />
+                <line number="153" hits="4" branch="False" />
+                <line number="154" hits="4" branch="False" />
+                <line number="157" hits="4" branch="False" />
+                <line number="158" hits="4" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="31" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="159" hits="2" branch="False" />
+                <line number="160" hits="2" branch="False" />
+                <line number="161" hits="2" branch="False" />
+                <line number="164" hits="2" branch="False" />
+                <line number="165" hits="2" branch="False" />
+                <line number="166" hits="4" branch="False" />
+              </lines>
+            </method>
+            <method name="Dispose" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="172" hits="14" branch="False" />
+                <line number="173" hits="14" branch="False" />
+                <line number="174" hits="14" branch="False" />
+                <line number="175" hits="14" branch="False" />
+              </lines>
+            </method>
+            <method name="Dispose" signature="(System.Boolean)" line-rate="0.8181" branch-rate="0.8332999999999999" complexity="6">
+              <lines>
+                <line number="178" hits="14" branch="False" />
+                <line number="179" hits="14" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="14" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="180" hits="12" branch="False" />
+                <line number="182" hits="12" branch="False" />
+                <line number="183" hits="12" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="29" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="184" hits="1" branch="False" />
+                <line number="186" hits="1" branch="False" />
+                <line number="187" hits="1" branch="False" />
+                <line number="188" hits="12" branch="False" />
+                <line number="189" hits="0" branch="False" />
+                <line number="190" hits="0" branch="False" />
+                <line number="192" hits="0" branch="False" />
+                <line number="193" hits="0" branch="False" />
+                <line number="195" hits="12" branch="False" />
+                <line number="196" hits="12" branch="False" />
+                <line number="197" hits="12" branch="False" />
+                <line number="198" hits="12" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="126" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="199" hits="12" branch="False" />
+                <line number="200" hits="12" branch="False" />
+                <line number="201" hits="12" branch="False" />
+                <line number="202" hits="12" branch="False" />
+                <line number="203" hits="14" branch="False" />
+              </lines>
+            </method>
+            <method name="ThrowIfDisposed" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="206" hits="19" branch="False" />
+                <line number="207" hits="19" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="9" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="208" hits="3" branch="False" />
+                <line number="209" hits="16" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="12" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="25" hits="16" branch="False" />
+            <line number="26" hits="16" branch="False" />
+            <line number="27" hits="16" branch="False" />
+            <line number="28" hits="16" branch="False" />
+            <line number="30" hits="16" branch="False" />
+            <line number="37" hits="15" branch="False" />
+            <line number="134" hits="6" branch="False" />
+            <line number="135" hits="6" branch="False" />
+            <line number="137" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="19" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="138" hits="1" branch="False" />
+            <line number="140" hits="4" branch="False" />
+            <line number="141" hits="5" branch="False" />
+            <line number="149" hits="4" branch="False" />
+            <line number="150" hits="4" branch="False" />
+            <line number="151" hits="4" branch="False" />
+            <line number="152" hits="4" branch="False" />
+            <line number="153" hits="4" branch="False" />
+            <line number="154" hits="4" branch="False" />
+            <line number="157" hits="4" branch="False" />
+            <line number="158" hits="4" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="31" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="159" hits="2" branch="False" />
+            <line number="160" hits="2" branch="False" />
+            <line number="161" hits="2" branch="False" />
+            <line number="164" hits="2" branch="False" />
+            <line number="165" hits="2" branch="False" />
+            <line number="166" hits="4" branch="False" />
+            <line number="172" hits="14" branch="False" />
+            <line number="173" hits="14" branch="False" />
+            <line number="174" hits="14" branch="False" />
+            <line number="175" hits="14" branch="False" />
+            <line number="178" hits="14" branch="False" />
+            <line number="179" hits="14" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="14" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="180" hits="12" branch="False" />
+            <line number="182" hits="12" branch="False" />
+            <line number="183" hits="12" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="29" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="184" hits="1" branch="False" />
+            <line number="186" hits="1" branch="False" />
+            <line number="187" hits="1" branch="False" />
+            <line number="188" hits="12" branch="False" />
+            <line number="189" hits="0" branch="False" />
+            <line number="190" hits="0" branch="False" />
+            <line number="192" hits="0" branch="False" />
+            <line number="193" hits="0" branch="False" />
+            <line number="195" hits="12" branch="False" />
+            <line number="196" hits="12" branch="False" />
+            <line number="197" hits="12" branch="False" />
+            <line number="198" hits="12" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="126" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="199" hits="12" branch="False" />
+            <line number="200" hits="12" branch="False" />
+            <line number="201" hits="12" branch="False" />
+            <line number="202" hits="12" branch="False" />
+            <line number="203" hits="14" branch="False" />
+            <line number="206" hits="19" branch="False" />
+            <line number="207" hits="19" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="9" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="208" hits="3" branch="False" />
+            <line number="209" hits="16" branch="False" />
+            <line number="17" hits="12" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.InputRecorderService/&lt;&lt;StartRecordingAsync&gt;b__13_0&gt;d" filename="Core\Services\InputRecorderService.cs" line-rate="0.8332999999999999" branch-rate="0.5" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0.8332999999999999" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="66" hits="7" branch="False" />
+                <line number="72" hits="7" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="159" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="73" hits="7" branch="False" />
+                <line number="74" hits="7" branch="False" />
+                <line number="78" hits="0" branch="False" />
+                <line number="79" hits="7" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="66" hits="7" branch="False" />
+            <line number="72" hits="7" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="159" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="73" hits="7" branch="False" />
+            <line number="74" hits="7" branch="False" />
+            <line number="78" hits="0" branch="False" />
+            <line number="79" hits="7" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.InputRecorderService/&lt;&gt;c__DisplayClass14_0" filename="Core\Services\InputRecorderService.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="&lt;StopRecordingAsync&gt;b__0" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines>
+                <line number="120" hits="2" branch="False" />
+                <line number="121" hits="4" branch="True" condition-coverage="100% (4/4)">
+                  <conditions>
+                    <condition number="45" type="jump" coverage="100%" />
+                    <condition number="24" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="122" hits="2" branch="False" />
+                <line number="123" hits="2" branch="False" />
+                <line number="124" hits="2" branch="False" />
+                <line number="125" hits="4" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="120" hits="2" branch="False" />
+            <line number="121" hits="4" branch="True" condition-coverage="100% (4/4)">
+              <conditions>
+                <condition number="45" type="jump" coverage="100%" />
+                <condition number="24" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="122" hits="2" branch="False" />
+            <line number="123" hits="2" branch="False" />
+            <line number="124" hits="2" branch="False" />
+            <line number="125" hits="4" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.InputRecorderService/&lt;StartRecordingAsync&gt;d__13" filename="Core\Services\InputRecorderService.cs" line-rate="0.9687" branch-rate="0.75" complexity="4">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0.9687" branch-rate="0.75" complexity="4">
+              <lines>
+                <line number="51" hits="9" branch="False" />
+                <line number="52" hits="9" branch="False" />
+                <line number="54" hits="8" branch="False" />
+                <line number="55" hits="8" branch="False" />
+                <line number="56" hits="8" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="86" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="57" hits="1" branch="False" />
+                <line number="59" hits="7" branch="False" />
+                <line number="60" hits="7" branch="False" />
+                <line number="61" hits="7" branch="False" />
+                <line number="64" hits="7" branch="False" />
+                <line number="65" hits="7" branch="False" />
+                <line number="67" hits="7" branch="False" />
+                <line number="68" hits="7" branch="False" />
+                <line number="69" hits="7" branch="False" />
+                <line number="70" hits="7" branch="False" />
+                <line number="71" hits="7" branch="False" />
+                <line number="75" hits="7" branch="False" />
+                <line number="76" hits="7" branch="False" />
+                <line number="77" hits="7" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="81" hits="7" branch="False" />
+                <line number="82" hits="7" branch="False" />
+                <line number="84" hits="7" branch="False" />
+                <line number="86" hits="7" branch="False" />
+                <line number="87" hits="7" branch="False" />
+                <line number="88" hits="7" branch="False" />
+                <line number="89" hits="7" branch="False" />
+                <line number="90" hits="7" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="390" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="91" hits="7" branch="False" />
+                <line number="92" hits="7" branch="False" />
+                <line number="93" hits="7" branch="False" />
+                <line number="94" hits="7" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="51" hits="9" branch="False" />
+            <line number="52" hits="9" branch="False" />
+            <line number="54" hits="8" branch="False" />
+            <line number="55" hits="8" branch="False" />
+            <line number="56" hits="8" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="86" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="57" hits="1" branch="False" />
+            <line number="59" hits="7" branch="False" />
+            <line number="60" hits="7" branch="False" />
+            <line number="61" hits="7" branch="False" />
+            <line number="64" hits="7" branch="False" />
+            <line number="65" hits="7" branch="False" />
+            <line number="67" hits="7" branch="False" />
+            <line number="68" hits="7" branch="False" />
+            <line number="69" hits="7" branch="False" />
+            <line number="70" hits="7" branch="False" />
+            <line number="71" hits="7" branch="False" />
+            <line number="75" hits="7" branch="False" />
+            <line number="76" hits="7" branch="False" />
+            <line number="77" hits="7" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="81" hits="7" branch="False" />
+            <line number="82" hits="7" branch="False" />
+            <line number="84" hits="7" branch="False" />
+            <line number="86" hits="7" branch="False" />
+            <line number="87" hits="7" branch="False" />
+            <line number="88" hits="7" branch="False" />
+            <line number="89" hits="7" branch="False" />
+            <line number="90" hits="7" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="390" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="91" hits="7" branch="False" />
+            <line number="92" hits="7" branch="False" />
+            <line number="93" hits="7" branch="False" />
+            <line number="94" hits="7" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.InputRecorderService/&lt;StopRecordingAsync&gt;d__14" filename="Core\Services\InputRecorderService.cs" line-rate="1" branch-rate="0.75" complexity="4">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="0.75" complexity="4">
+              <lines>
+                <line number="103" hits="4" branch="False" />
+                <line number="104" hits="4" branch="False" />
+                <line number="108" hits="3" branch="False" />
+                <line number="109" hits="3" branch="False" />
+                <line number="110" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="134" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="111" hits="1" branch="False" />
+                <line number="113" hits="2" branch="False" />
+                <line number="114" hits="2" branch="False" />
+                <line number="116" hits="2" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="200" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="119" hits="2" branch="False" />
+                <line number="126" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="103" hits="4" branch="False" />
+            <line number="104" hits="4" branch="False" />
+            <line number="108" hits="3" branch="False" />
+            <line number="109" hits="3" branch="False" />
+            <line number="110" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="134" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="111" hits="1" branch="False" />
+            <line number="113" hits="2" branch="False" />
+            <line number="114" hits="2" branch="False" />
+            <line number="116" hits="2" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="200" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="119" hits="2" branch="False" />
+            <line number="126" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.ScreenshotResult" filename="Core\Services\IScreenshotProvider.cs" line-rate="0" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_ImageData" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="56" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Timestamp" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="59" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Method" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="62" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RetryCount" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="65" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_DurationMs" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="68" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_HasError" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="71" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ErrorCode" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="74" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ErrorMessage" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="77" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="56" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="65" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="77" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Services.MacroExecutor" filename="Core\Services\MacroExecutor.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="RunAsync" signature="(GameMacroAssistant.Core.Models.Macro,System.Threading.CancellationToken)" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="19" hits="5" branch="False" />
+                <line number="20" hits="26" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="130" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="21" hits="6" branch="False" />
+                <line number="22" hits="6" branch="False" />
+                <line number="23" hits="5" branch="False" />
+                <line number="24" hits="5" branch="False" />
+                <line number="25" hits="4" branch="False" />
+                <line number="26" hits="4" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="19" hits="5" branch="False" />
+            <line number="20" hits="26" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="130" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="21" hits="6" branch="False" />
+            <line number="22" hits="6" branch="False" />
+            <line number="23" hits="5" branch="False" />
+            <line number="24" hits="5" branch="False" />
+            <line number="25" hits="4" branch="False" />
+            <line number="26" hits="4" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.InputEvent" filename="Core\Models\InputEvent.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="24" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TimestampMs" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="40" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="24" branch="False" />
+            <line number="15" hits="40" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.MouseInputEvent" filename="Core\Models\InputEvent.cs" line-rate="1" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_Type" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="30" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_X" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="33" hits="29" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Y" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="36" hits="29" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Button" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="39" hits="29" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Action" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="42" hits="29" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PressDurationMs" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="45" hits="14" branch="False" />
+              </lines>
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="48" hits="11" branch="False" />
+                <line number="49" hits="11" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="50" hits="11" branch="False" />
+                <line number="51" hits="11" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="30" hits="1" branch="False" />
+            <line number="33" hits="29" branch="False" />
+            <line number="36" hits="29" branch="False" />
+            <line number="39" hits="29" branch="False" />
+            <line number="42" hits="29" branch="False" />
+            <line number="45" hits="14" branch="False" />
+            <line number="48" hits="11" branch="False" />
+            <line number="49" hits="11" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="50" hits="11" branch="False" />
+            <line number="51" hits="11" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.KeyboardInputEvent" filename="Core\Models\InputEvent.cs" line-rate="1" branch-rate="1" complexity="9">
+          <methods>
+            <method name="get_Type" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="60" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_VirtualKeyCode" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="63" hits="13" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Action" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="66" hits="13" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Modifiers" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="69" hits="20" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PressDurationMs" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="72" hits="8" branch="False" />
+              </lines>
+            </method>
+            <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="4">
+              <lines>
+                <line number="75" hits="5" branch="False" />
+                <line number="76" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="7" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="77" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="74" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="78" hits="5" branch="False" />
+                <line number="79" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="60" hits="1" branch="False" />
+            <line number="63" hits="13" branch="False" />
+            <line number="66" hits="13" branch="False" />
+            <line number="69" hits="20" branch="False" />
+            <line number="72" hits="8" branch="False" />
+            <line number="75" hits="5" branch="False" />
+            <line number="76" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="7" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="77" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="74" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="78" hits="5" branch="False" />
+            <line number="79" hits="5" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.InputEventArgs" filename="Core\Models\InputEvent.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Event" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="132" hits="8" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Screenshot" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="133" hits="8" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="132" hits="8" branch="False" />
+            <line number="133" hits="8" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.Macro" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name="get_Version" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="13" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Metadata" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="11" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Steps" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="23" hits="15" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="15" hits="13" branch="False" />
+            <line number="19" hits="11" branch="False" />
+            <line number="23" hits="15" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.MacroMetadata" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="33" hits="15" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Description" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="37" hits="8" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Created" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="41" hits="14" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Modified" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="45" hits="14" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Encrypted" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="49" hits="18" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="33" hits="15" branch="False" />
+            <line number="37" hits="8" branch="False" />
+            <line number="41" hits="14" branch="False" />
+            <line number="45" hits="14" branch="False" />
+            <line number="49" hits="18" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.MacroStep" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="59" hits="15" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Type" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="63" hits="23" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TimestampMs" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="67" hits="20" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Data" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="71" hits="15" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="59" hits="15" branch="False" />
+            <line number="63" hits="23" branch="False" />
+            <line number="67" hits="20" branch="False" />
+            <line number="71" hits="15" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.MouseStepData" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_X" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="89" hits="7" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Y" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="92" hits="7" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Button" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="95" hits="7" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Action" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="98" hits="7" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="89" hits="7" branch="False" />
+            <line number="92" hits="7" branch="False" />
+            <line number="95" hits="7" branch="False" />
+            <line number="98" hits="7" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.KeyboardStepData" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name="get_VirtualKey" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="105" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Action" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="108" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Modifiers" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="111" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="105" hits="3" branch="False" />
+            <line number="108" hits="3" branch="False" />
+            <line number="111" hits="5" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.ImageStepData" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name="get_Template" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="119" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Region" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="123" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Threshold" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="127" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="119" hits="2" branch="False" />
+            <line number="123" hits="3" branch="False" />
+            <line number="127" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.ImageRegion" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_X" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="134" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Y" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="137" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Width" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="140" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Height" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="143" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="134" hits="1" branch="False" />
+            <line number="137" hits="1" branch="False" />
+            <line number="140" hits="2" branch="False" />
+            <line number="143" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.ImageThreshold" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Ssim" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="151" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PixelDiff" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="155" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="151" hits="2" branch="False" />
+            <line number="155" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.DelayStepData" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="get_Duration" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="163" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="163" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.Core.Models.CommentStepData" filename="Core\Models\Macro.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="get_Text" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="171" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="171" hits="2" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="GameMacroAssistant.UI" line-rate="0" branch-rate="0" complexity="17">
+      <classes>
+        <class name="GameMacroAssistant.UI.App" filename="UI\App.xaml.cs" line-rate="0" branch-rate="0" complexity="3">
+          <methods>
+            <method name="OnExit" signature="(System.Windows.ExitEventArgs)" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="83" hits="0" branch="False" />
+                <line number="84" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="8" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="85" hits="0" branch="False" />
+                <line number="86" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="ConfigureServices" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="89" hits="0" branch="False" />
+                <line number="97" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="83" hits="0" branch="False" />
+            <line number="84" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="8" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="85" hits="0" branch="False" />
+            <line number="86" hits="0" branch="False" />
+            <line number="89" hits="0" branch="False" />
+            <line number="97" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.App/&lt;&gt;c" filename="UI\App.xaml.cs" line-rate="0" branch-rate="1" complexity="2">
+          <methods>
+            <method name="&lt;OnStartup&gt;b__1_1" signature="(System.String)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="28" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="&lt;OnStartup&gt;b__1_0" signature="(Microsoft.Extensions.Logging.ILoggingBuilder)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
+                <line number="69" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="28" hits="0" branch="False" />
+            <line number="66" hits="0" branch="False" />
+            <line number="67" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="69" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.App/&lt;OnStartup&gt;d__1" filename="UI\App.xaml.cs" line-rate="0" branch-rate="0" complexity="6">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="6">
+              <lines>
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="41" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="27" hits="0" branch="False" />
+                <line number="29" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="111" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+                <line number="38" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="206" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+                <line number="64" hits="0" branch="False" />
+                <line number="65" hits="0" branch="False" />
+                <line number="70" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
+                <line number="77" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="41" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="27" hits="0" branch="False" />
+            <line number="29" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="111" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="38" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="206" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
+            <line number="64" hits="0" branch="False" />
+            <line number="65" hits="0" branch="False" />
+            <line number="70" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="77" hits="0" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.App" filename="UI\obj\Debug\net8.0-windows10.0.19041.0\App.g.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="InitializeComponent" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="48" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="48" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.App" filename="UI\App.xaml" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="InitializeComponent" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.Views.MainWindow" filename="UI\obj\Debug\net8.0-windows10.0.19041.0\Views\MainWindow.g.cs" line-rate="0" branch-rate="0" complexity="2">
+          <methods>
+            <method name="InitializeComponent" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="50" hits="0" branch="False" />
+                <line number="51" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="9" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="52" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="50" hits="0" branch="False" />
+            <line number="51" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="9" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="52" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.Views.MainWindow" filename="UI\Views\MainWindow.xaml" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="InitializeComponent" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="1" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="GameMacroAssistant.UI.Views.MainWindow" filename="UI\Views\MainWindow.xaml.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+                <line number="12" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>

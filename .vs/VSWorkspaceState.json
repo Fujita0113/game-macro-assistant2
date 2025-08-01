@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\docs",
+    "\\src",
+    "\\src\\Core",
+    "\\src\\Core\\bin",
+    "\\src\\Core\\bin\\Debug",
+    "\\src\\Core\\bin\\Release",
+    "\\src\\Core\\Models",
+    "\\src\\Core\\obj"
+  ],
+  "SelectedNode": "\\GameMacroAssistant.sln",
+  "PreviewInSolutionExplorer": false
+}
