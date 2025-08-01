@@ -23,7 +23,9 @@
       "Bash(start src/UI/bin/Debug/net8.0-windows10.0.19041.0/GameMacroAssistant.UI.exe)",
       "Bash(./src/UI/bin/Debug/net8.0-windows10.0.19041.0/GameMacroAssistant.UI.exe)",
       "Bash(rg:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git worktree:*)",
+      "Bash(git branch:*)"
     ],
     "deny": []
   }

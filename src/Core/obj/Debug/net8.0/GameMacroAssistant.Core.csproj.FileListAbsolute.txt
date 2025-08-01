@@ -12,3 +12,4 @@ C:\Users\yufuj\Desktop\gameAutoProject2\src\Core\obj\Debug\net8.0\refint\GameMac
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Core\obj\Debug\net8.0\GameMacroAssistant.Core.xml
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Core\obj\Debug\net8.0\GameMacroAssistant.Core.pdb
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Core\obj\Debug\net8.0\ref\GameMacroAssistant.Core.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Core\obj\Debug\net8.0\GameMacroAssistant.Core.sourcelink.json

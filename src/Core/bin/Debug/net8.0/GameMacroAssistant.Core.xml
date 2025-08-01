@@ -19,6 +19,9 @@
         <member name="P:GameMacroAssistant.Core.Models.InputEvent.Type">
             <summary>イベント種別</summary>
         </member>
+        <member name="M:GameMacroAssistant.Core.Models.InputEvent.ToString">
+            <summary>デバッグ用の詳細情報を文字列で取得</summary>
+        </member>
         <member name="T:GameMacroAssistant.Core.Models.MouseInputEvent">
             <summary>
             マウス入力イベント
@@ -213,6 +216,72 @@
             <param name="cancellationToken">キャンセレーショントークン</param>
             <returns>記録停止タスク</returns>
         </member>
+        <member name="T:GameMacroAssistant.Core.Services.InputRecorderService">
+            <summary>
+            マウス・キーボード入力をフックし、イベントを記録するサービス実装
+            R-002, R-003: 座標・ボタン種別・押下時間・仮想キーコードを記録
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.InputRecorderService.IsRecording">
+            <summary>
+            入力記録が開始されているかどうか
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.InputRecorderService.StopRecordingKey">
+            <summary>
+            記録停止キー（デフォルト: ESC = 27）
+            </summary>
+        </member>
+        <member name="E:GameMacroAssistant.Core.Services.InputRecorderService.InputCaptured">
+            <summary>
+            入力イベントがキャプチャされた時に発生
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.StartRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を開始
+            R-001: UI上のボタンクリックで開始
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録開始タスク</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.PrepareForStop">
+            <summary>
+            停止準備（停止操作前に呼び出して停止関連イベントを抑制）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.StopRecordingAsync(System.Threading.CancellationToken)">
+            <summary>
+            マクロ記録を停止
+            R-005: デフォルトはESCキー
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>記録停止タスク</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.SimulateInputCapture(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])">
+            <summary>
+            イベントを発生させる（テスト用およびフック実装時に使用）
+            </summary>
+            <param name="inputEvent">入力イベント</param>
+            <param name="screenshot">スクリーンショット</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.OnHookInputDetected(System.Object,GameMacroAssistant.Core.Models.InputEvent)">
+            <summary>
+            Windows APIフックからの入力イベントを処理
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.OnInputCaptured(GameMacroAssistant.Core.Models.InputEvent,System.Byte[])">
+            <summary>
+            イベントを発生させる（継承クラスおよび内部処理用）
+            </summary>
+            <param name="inputEvent">入力イベント</param>
+            <param name="screenshot">スクリーンショット</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.InputRecorderService.Dispose">
+            <summary>
+            リソースを解放
+            </summary>
+        </member>
         <member name="T:GameMacroAssistant.Core.Services.IScreenshotProvider">
             <summary>
             Desktop Duplication API と GDI BitBlt フォールバックによるスクリーンショット取得
@@ -283,6 +352,91 @@
         </member>
         <member name="P:GameMacroAssistant.Core.Services.ScreenshotResult.ErrorMessage">
             <summary>エラーメッセージ</summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.IWindowsApiHook">
+            <summary>
+            Windows API フック（マウス・キーボード）による入力監視
+            R-001, R-002: 低遅延フック + グローバル入力監視
+            </summary>
+        </member>
+        <member name="P:GameMacroAssistant.Core.Services.IWindowsApiHook.IsHookActive">
+            <summary>
+            フックが現在アクティブかどうか
+            </summary>
+        </member>
+        <member name="E:GameMacroAssistant.Core.Services.IWindowsApiHook.InputDetected">
+            <summary>
+            入力イベントが発生した時のイベント
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StartHookAsync(System.Threading.CancellationToken)">
+            <summary>
+            マウス・キーボードフックを開始
+            R-001: 5ms以内の低遅延で入力をキャプチャ
+            </summary>
+            <param name="cancellationToken">キャンセレーショントークン</param>
+            <returns>フック開始のTask</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StopHookAsync">
+            <summary>
+            フックを停止
+            </summary>
+            <returns>フック停止のTask</returns>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.SuppressInput(System.Int32)">
+            <summary>
+            特定の入力を一時的に無視（マクロ実行中の自分自身の入力を除外）
+            </summary>
+            <param name="suppressDurationMs">抑制時間（ミリ秒）</param>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.IWindowsApiHook.StartStoppingMode">
+            <summary>
+            停止直前モードを開始（停止操作に関連するイベントを抑制）
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.MacroExecutor">
+            <summary>
+            Simplified macro execution engine for headless mode.
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.MacroExecutor.RunAsync(GameMacroAssistant.Core.Models.Macro,System.Threading.CancellationToken)">
+            <summary>
+            Execute a macro. Currently this only logs steps to the console.
+            </summary>
+            <param name="macro">Macro definition</param>
+            <param name="cancellationToken">Cancellation token</param>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.ScreenshotProviderService">
+            <summary>
+            Desktop Duplication API と GDI BitBlt フォールバックによるスクリーンショット実装
+            R-004, R-006: 50ms以内キャプチャ + リトライ + フォールバック
+            </summary>
+        </member>
+        <member name="T:GameMacroAssistant.Core.Services.WindowsApiHookService">
+            <summary>
+            Windows API 低レベルフック実装
+            R-001, R-002: マウス・キーボード入力の低遅延監視
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.StartStoppingMode">
+            <summary>
+            停止直前モードを開始（停止操作に関連するイベントを抑制）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.ProcessMouseEvent(System.Int32,GameMacroAssistant.Core.Services.WindowsApiHookService.MSLLHOOKSTRUCT)">
+            <summary>
+            マウスイベントを統合処理（DOWN/UPペアを1つのクリックイベントにまとめる）
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.IsDuplicateMouseEvent(GameMacroAssistant.Core.Models.MouseInputEvent)">
+            <summary>
+            マウスイベントの重複チェック
+            </summary>
+        </member>
+        <member name="M:GameMacroAssistant.Core.Services.WindowsApiHookService.IsDuplicateKeyboardEvent(GameMacroAssistant.Core.Models.KeyboardInputEvent)">
+            <summary>
+            キーボードイベントの重複チェック
+            </summary>
         </member>
     </members>
 </doc>

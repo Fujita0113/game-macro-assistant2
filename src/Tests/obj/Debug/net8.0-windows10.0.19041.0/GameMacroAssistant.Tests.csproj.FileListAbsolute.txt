@@ -149,3 +149,14 @@ C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\obj\Debug\net8.0-windows10.0.1
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.Tests.pdb
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.Tests.genruntimeconfig.cache
 C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\obj\Debug\net8.0-windows10.0.19041.0\ref\GameMacroAssistant.Tests.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\CLI.deps.json
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\CLI.runtimeconfig.json
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\CLI.exe
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\Appium.Net.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\SeleniumExtras.PageObjects.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\Microsoft.Extensions.Http.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\WebDriver.Support.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\WebDriver.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\CLI.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\bin\Debug\net8.0-windows10.0.19041.0\CLI.pdb
+C:\Users\yufuj\Desktop\gameAutoProject2\src\Tests\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.Tests.sourcelink.json

@@ -62,3 +62,10 @@ C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.1904
 C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI.pdb
 C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI.genruntimeconfig.cache
 C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\ref\GameMacroAssistant.UI.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\bin\Debug\net8.0-windows10.0.19041.0\Microsoft.Extensions.Http.dll
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\Views\CrashDumpConsentDialog.baml
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\Views\CrashDumpConsentDialog.g.cs
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI_MarkupCompile.lref
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI.sourcelink.json
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI.csproj.Fody.CopyLocal.cache
+C:\Users\yufuj\Desktop\gameAutoProject2\src\UI\obj\Debug\net8.0-windows10.0.19041.0\GameMacroAssistant.UI.csproj.Fody.RuntimeCopyLocal.cache

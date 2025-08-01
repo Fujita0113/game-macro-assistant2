@@ -5,31 +5,72 @@
   </目的>
 
   <!-- ───── ワークフロー ───── -->
-  <ワークフロー>
-    1. **タスク参照**
-       - 以下の必読ファイルを必ず確認
-         - `docs/requirements/*.md`（要件定義一式）
-         - `docs/pm/tasks/*.md`（★PM が最新で生成したタスク群）
-       - 各タスクごとに **Acceptance Criteria** を満たす失敗テストを先に作成
-       - 実装 → テストグリーン化 → PR
+<ワークフロー>
+  1. **タスク参照**
+     - 必読ファイルを確認
+       - `docs/requirement.md`（要件定義一式）
+       - `docs/pm/tasks/*.md`（PM が生成したタスク群）
+     - 各タスクごとに Acceptance Criteria を確認
+     - テスト設計（失敗テストを先に用意）
 
-    2. **Think → Plan → Code → Test → Commit**
-       - まず「計画」を提示しユーザーの 🟢 *OK* を待つ
-       - 失敗するテストを先に書く (TDD)
-       - `git add` → `git commit -m "feat: …"` → `git push`
+  2. **開発ブランチ準備 (git worktree 利用)**
+     - 新しいタスクごとにブランチを作成し、リポジトリ直下の `worktrees/` 配下に専用ワークツリーを追加  
+       ※ Claude Code の制約により、外部ディレクトリには作成しない
+       ```bash
+       mkdir -p worktrees
+       git branch feature/<TaskID>
+       git worktree add worktrees/<TaskID> feature/<TaskID>
+       cd worktrees/<TaskID>
+       ```
 
-    3. **透明性チェック (必須)**
-       - テスト・静的解析・カバレッジ・パフォーマンスの全レポートを取得
-       - 失敗・警告が 1 件でもあれば  
-         a. `docs/daily/YYYY-MM-DD.md` の Result に赤字記入  
-         b. **Never** マージ完了や「Done」と宣言しない  
-    4. **要件カバレッジ表の更新 (必須)**
-       - マージ完了後、`docs/trace/requirements_coverage.md` を最新化する  
-         a. 自分が実装したタスク *.md の `covers:` を解析  
-         b. ステータスを ✅ Done に変更しコミットハッシュを記入  
-       - スクリプト例: `python scripts/update_coverage.py`
-       - 表のテンプレートを崩さないこと（列順・ヘッダー固定）
-  </ワークフロー>
+  3. **Think → Plan → Code**
+     - 計画を提示し、ユーザーの 🟢 *OK* を得てから実装開始
+     - 実装を進め、ローカルでテストが通る状態にする
+     - コミットは行うが push はまだ行わない
+       ```bash
+       git add .
+       git commit -m "feat: implement <TaskID>"
+       ```
+
+  4. **ユーザー確認テスト**
+     - ユーザーが同ワークツリーに移動し、IDEなどで結合テストを実施
+     - 結果を `docs/daily/YYYY-MM-DD.md` の Result に記録
+     - NG があれば修正依頼 → 修正 → 再テスト
+
+  5. **承認後の push & worktree 削除**
+     - ユーザーから承認が得られたら push
+       ```bash
+       git push origin feature/<TaskID>
+       ```
+     - 作業済みワークツリーを削除
+       ```bash
+       cd ../..
+       git worktree remove worktrees/<TaskID>
+       git branch -d feature/<TaskID>
+       ```
+
+  6. **main への統合**
+     - main ブランチに移動してマージ
+       ```bash
+       git checkout main
+       git pull origin main
+       git merge feature/<TaskID>
+       git push origin main
+       ```
+
+  7. **透明性チェック**
+     - CI でテスト・静的解析・カバレッジ・パフォーマンスを実施
+     - 失敗・警告が 1 件でもあれば  
+       a. `docs/daily/YYYY-MM-DD.md` の Result に赤字で記録  
+       b. 「Done」と宣言せず修正対応
+
+  8. **要件カバレッジ表の更新**
+     - マージ完了後、`docs/trace/requirements_coverage.md` を最新化
+       - covers: を確認し Done に更新
+       - コミットハッシュを記録
+       ```
+</ワークフロー>
+
 
   <!-- ───── 設計スタイル ───── -->
   <スタイル>

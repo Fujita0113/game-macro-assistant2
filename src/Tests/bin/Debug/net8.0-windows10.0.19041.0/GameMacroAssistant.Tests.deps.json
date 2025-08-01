@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "GameMacroAssistant.Tests/1.0.0": {
         "dependencies": {
+          "Appium.WebDriver": "4.4.0",
+          "CLI": "1.0.0",
           "FluentAssertions": "6.12.0",
           "GameMacroAssistant.Core": "1.0.0",
           "GameMacroAssistant.UI": "1.0.0",
@@ -37,6 +39,22 @@
           }
         }
       },
+      "Appium.WebDriver/4.4.0": {
+        "dependencies": {
+          "Castle.Core": "5.1.1",
+          "DotNetSeleniumExtras.PageObjects": "3.11.0",
+          "Newtonsoft.Json": "13.0.1",
+          "Selenium.Support": "3.141.0",
+          "Selenium.WebDriver": "3.141.0",
+          "System.Drawing.Common": "8.0.8"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Appium.Net.dll": {
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.0.0"
+          }
+        }
+      },
       "Castle.Core/5.1.1": {
         "dependencies": {
           "System.Diagnostics.EventLog": "8.0.0"
@@ -50,6 +68,17 @@
       },
       "coverlet.collector/6.0.2": {},
       "coverlet.msbuild/6.0.2": {},
+      "DotNetSeleniumExtras.PageObjects/3.11.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "3.141.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {
+            "assemblyVersion": "3.11.0.0",
+            "fileVersion": "3.11.0.0"
+          }
+        }
+      },
       "DynamicData/8.4.1": {
         "dependencies": {
           "System.Reactive": "6.0.1"
@@ -302,6 +331,22 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "Microsoft.Extensions.Http/8.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
+          "Microsoft.Extensions.Diagnostics": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.1",
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Http.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.53103"
           }
@@ -755,6 +800,28 @@
           }
         }
       },
+      "Selenium.Support/3.141.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "3.141.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.Support.dll": {
+            "assemblyVersion": "3.141.0.0",
+            "fileVersion": "3.141.0.0"
+          }
+        }
+      },
+      "Selenium.WebDriver/3.141.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.dll": {
+            "assemblyVersion": "3.141.0.0",
+            "fileVersion": "3.141.0.0"
+          }
+        }
+      },
       "Splat/15.1.1": {
         "runtime": {
           "lib/net8.0/Splat.dll": {
@@ -881,6 +948,17 @@
         }
       },
       "xunit.runner.visualstudio/2.8.2": {},
+      "CLI/1.0.0": {
+        "dependencies": {
+          "GameMacroAssistant.Core": "1.0.0"
+        },
+        "runtime": {
+          "CLI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "GameMacroAssistant.Core/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
@@ -903,6 +981,7 @@
           "Microsoft.Extensions.Configuration.Json": "8.0.0",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "Microsoft.Extensions.Hosting": "8.0.0",
+          "Microsoft.Extensions.Http": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0",
           "ReactiveUI.Fody": "19.5.41",
           "ReactiveUI.WPF": "20.1.1",
@@ -928,6 +1007,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Appium.WebDriver/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eMkNgokVlLk7tyZxPp6JoaiwAygG0PBa2WtGdLTZTyRgW8ytfBv7ScLdmlEQkTgVZytedNa+xUVe4XvLfqqHPQ==",
+      "path": "appium.webdriver/4.4.0",
+      "hashPath": "appium.webdriver.4.4.0.nupkg.sha512"
+    },
     "Castle.Core/5.1.1": {
       "type": "package",
       "serviceable": true,
@@ -948,6 +1034,13 @@
       "sha512": "sha512-8b4jBNH7mcQy1otyQErjjIUuGD74XxKZ1wvDufbY7jhWwckl7wIa+icjwdPYeI0aYMS4Tp63LIZvyMFjWwOMDw==",
       "path": "coverlet.msbuild/6.0.2",
       "hashPath": "coverlet.msbuild.6.0.2.nupkg.sha512"
+    },
+    "DotNetSeleniumExtras.PageObjects/3.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DJCLQ3beq1fzqpeQ5jTZwDqmzbOD2Xxsb/jCyShYam88CNwGGn5aBBqu4LVSj0sy0Ai76OauQQncYlC48VvQUQ==",
+      "path": "dotnetseleniumextras.pageobjects/3.11.0",
+      "hashPath": "dotnetseleniumextras.pageobjects.3.11.0.nupkg.sha512"
     },
     "DynamicData/8.4.1": {
       "type": "package",
@@ -1096,6 +1189,13 @@
       "path": "microsoft.extensions.hosting.abstractions/8.0.0",
       "hashPath": "microsoft.extensions.hosting.abstractions.8.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Http/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cWz4caHwvx0emoYe7NkHPxII/KkTI8R/LC9qdqJqnKv2poTJ4e2qqPGQqvRoQ5kaSA4FU5IV3qFAuLuOhoqULQ==",
+      "path": "microsoft.extensions.http/8.0.0",
+      "hashPath": "microsoft.extensions.http.8.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1228,6 +1328,20 @@
       "sha512": "sha512-/xWQwprSkd5Bwa/xmlN2dZL93M53Avv5ok4s2FFg3GGzwnroeYVP/T785/J1S86x70e+5d5j2IwFlNyCTFoCIQ==",
       "path": "reactiveui.wpf/20.1.1",
       "hashPath": "reactiveui.wpf.20.1.1.nupkg.sha512"
+    },
+    "Selenium.Support/3.141.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-F4sxMCXGyqWtbw5qsniJRgza2UsBnslHwFgNA2p7hPxvJhqg73lyXu/ZscJ7FSfRvq3eJrosysv92+4sZ3vWsg==",
+      "path": "selenium.support/3.141.0",
+      "hashPath": "selenium.support.3.141.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver/3.141.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wPqzXO3f79DzqauTZSzLMKiaBCN0Z2Mv7KvWP+hnV6EL88zh/pJJnFtdIR1X5wa3hsTOpF/bBJs45rz7kArsiA==",
+      "path": "selenium.webdriver/3.141.0",
+      "hashPath": "selenium.webdriver.3.141.0.nupkg.sha512"
     },
     "Splat/15.1.1": {
       "type": "package",
@@ -1368,6 +1482,11 @@
       "sha512": "sha512-vm1tbfXhFmjFMUmS4M0J0ASXz3/U5XvXBa6DOQUL3fEz4Vt6YPhv+ESCarx6M6D+9kJkJYZKCNvJMas1+nVfmQ==",
       "path": "xunit.runner.visualstudio/2.8.2",
       "hashPath": "xunit.runner.visualstudio.2.8.2.nupkg.sha512"
+    },
+    "CLI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "GameMacroAssistant.Core/1.0.0": {
       "type": "project",
